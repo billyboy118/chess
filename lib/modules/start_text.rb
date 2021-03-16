@@ -35,9 +35,6 @@ puts '            Lets play some chess'.light_blue
     greeting = puts "\nWhat game mode would you like to play?"
     choices = ['Two Player', 'Single Player (not currently available)']
     prompt.select(greeting, choices)
-
-    #selection == 'Two Player' ? initiate_two_player : initiate_    
-
   end
 
   def self.load_game
@@ -47,8 +44,4 @@ puts '            Lets play some chess'.light_blue
     sleep 3
     lets_play
   end
-
-
-
-
 end

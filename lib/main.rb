@@ -10,8 +10,13 @@ require 'tty-prompt'
 def start
   StartText.welcome_message
   game_mode = StartText.lets_play
+  game_mode == 'Two Player' ? initate_two_player : initate_single_player
+end
 
-  puts game_mode
+
+def initate_single_player
+  StartText.welcome_message
+  puts "\n Single player currently unavailable"
 end
 
 start
