@@ -34,7 +34,9 @@ puts '            Lets play some chess'.light_blue
     prompt = TTY::Prompt.new
     greeting = puts "\nWhat game mode would you like to play?"
     choices = ['Two Player', 'Single Player (not currently available)']
-    selection = prompt.select(greeting, choices)
+    prompt.select(greeting, choices)
+
+    #selection == 'Two Player' ? initiate_two_player : initiate_    
 
   end
 

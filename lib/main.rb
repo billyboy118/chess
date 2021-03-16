@@ -9,7 +9,9 @@ require 'tty-prompt'
 
 def start
   StartText.welcome_message
-  StartText.lets_play
+  game_mode = StartText.lets_play
+
+  puts game_mode
 end
 
 start
