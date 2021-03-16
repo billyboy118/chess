@@ -38,6 +38,15 @@ puts '            Lets play some chess'.light_blue
 
   end
 
+  def self.load_game
+    Generic.clear
+    welcome_message
+    puts "\n Load game currently unavailable"
+    sleep 3
+    lets_play
+  end
+
+
 
 
 end
