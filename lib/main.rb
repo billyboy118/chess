@@ -5,14 +5,16 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), 'pieces')
 require 'colorize'
 require 'generic'
 require 'start_text'
+require 'two_player'
+
 require 'tty-prompt'
 
 def start
   StartText.welcome_message
   game_mode = StartText.lets_play
-  game_mode == 'Two Player' ? initate_two_player : initate_single_player
-end
+  game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
 
+end
 
 def initate_single_player
   StartText.welcome_message
