@@ -4,7 +4,8 @@
 module TwoPlayer
   def self.initate_two_player
     names = player_names(2)
-
+    player_1 = Player.new(names[0], 'White')
+    player_2 = Player.new(names[1], 'Black')
   end
 
   def self.player_names(num)
@@ -18,5 +19,4 @@ module TwoPlayer
     puts "\nHello #{names[0]} & #{names[1]} lets play some chess!"
     names
   end
-
 end

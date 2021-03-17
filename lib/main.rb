@@ -1,12 +1,17 @@
 # frozen_string_literal: false
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'modules')
-$LOAD_PATH << File.join(File.dirname(__FILE__), 'pieces')
-require 'colorize'
+$LOAD_PATH << File.join(File.dirname(__FILE__), 'classes')
+
+
 require 'generic'
 require 'start_text'
 require 'two_player'
+require 'player'
 
+
+
+require 'colorize'
 require 'tty-prompt'
 
 def start
