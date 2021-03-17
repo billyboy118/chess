@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-# some random generic modules to use througout
+# class which create players
 class Player
   def initialize(name, colour)
     @name = name
