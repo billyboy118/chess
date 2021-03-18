@@ -15,7 +15,7 @@ class Board
         @board.push(Square.new([horizontal, vertical]))
       end
     end
-    puts @board[1].position
+    puts @player1
   end
 
 end
