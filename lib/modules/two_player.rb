@@ -4,8 +4,10 @@
 module TwoPlayer
   def self.initate_two_player
     names = player_names(2)
-    player_1 = Player.new(names[0], 'White')
-    player_2 = Player.new(names[1], 'Black')
+    player1 = Player.new(names[0], 'White')
+    player2 = Player.new(names[1], 'Black')
+    Board.new(player1, player2)
+
   end
 
   def self.player_names(num)

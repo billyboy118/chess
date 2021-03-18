@@ -7,6 +7,9 @@ require 'generic'
 require 'start_text'
 require 'two_player'
 require 'player'
+require 'square'
+require 'board'
+
 
 require 'colorize'
 require 'tty-prompt'
@@ -15,6 +18,7 @@ def start
   StartText.welcome_message
   game_mode = StartText.lets_play
   game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
+  
 end
 
 def initate_single_player
