@@ -2,6 +2,10 @@
 
 # this class creates the board with the help of the Squares class
 class Board
+  attr_reader :board
+
+  include ShowBoard
+
   def initialize(player1, player2 = nil)
     @board = []
     @player1 = player1
@@ -15,7 +19,7 @@ class Board
         @board.push(Square.new([horizontal, vertical]))
       end
     end
-    puts @player1
+    show_board
   end
 
 end

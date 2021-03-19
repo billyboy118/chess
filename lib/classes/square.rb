@@ -7,6 +7,6 @@ class Square
 
   def initialize(place)
     @position = place
-    @current_piece = nil
+    @current_piece = ' '
   end
 end

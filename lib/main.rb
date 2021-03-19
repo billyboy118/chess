@@ -2,13 +2,25 @@
 
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'modules')
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'classes')
+$LOAD_PATH << File.join(File.dirname(__FILE__), './classes/pieces')
 
+require 'show_board'
 require 'generic'
 require 'start_text'
 require 'two_player'
 require 'player'
 require 'square'
 require 'board'
+require 'chess_pieces'
+require 'pieces'
+require 'bishop'
+require 'king'
+require 'knight'
+require 'pawn'
+require 'queen'
+require 'rook'
+
+
 
 
 require 'colorize'
@@ -26,4 +38,6 @@ def initate_single_player
   puts "\n Single player currently unavailable"
 end
 
-start
+#start
+bishop = Bishop.new('Bill', 'Black')
+puts bishop.piece
