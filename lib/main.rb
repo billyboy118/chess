@@ -20,6 +20,7 @@ require 'queen'
 require 'rook'
 require 'move_input'
 require 'game_messages'
+require 'instruction'
 
 require 'colorize'
 require 'tty-prompt'

@@ -14,7 +14,7 @@ module TwoPlayer
     names = []
     num.times do |i|
       StartText.welcome_message
-      puts "\n Player #{i + 1} what is your name?"
+      puts "\nPlayer #{i + 1} what is your name?"
       names.push(gets.chomp)
     end
     StartText.welcome_message
@@ -25,6 +25,7 @@ module TwoPlayer
   def self.game_cycle(player1, player2)
     GameMessages.whos_who(player1, player2)
 
+    while 
 
   end
 end
