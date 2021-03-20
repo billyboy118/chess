@@ -18,9 +18,8 @@ require 'knight'
 require 'pawn'
 require 'queen'
 require 'rook'
-
-
-
+require 'move_input'
+require 'game_messages'
 
 require 'colorize'
 require 'tty-prompt'

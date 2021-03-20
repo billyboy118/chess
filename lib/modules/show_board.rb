@@ -39,7 +39,7 @@ module ShowBoard
   def show_board
     StartText.welcome_message
     puts ''
-    print '   8 '
+    print '            8 '
     (56..63).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -49,7 +49,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   7 '
+    print '            7 '
     (48..55).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -59,7 +59,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   6 '
+    print '            6 '
     (40..47).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -69,7 +69,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   5 '
+    print '            5 '
     (32..39).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -79,7 +79,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   4 '
+    print '            4 '
     (24..31).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -89,7 +89,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   3 '
+    print '            3 '
     (16..23).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -99,7 +99,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   2 '
+    print '            2 '
     (8..15).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -109,7 +109,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '   1 '
+    print '            1 '
     (0..7).each do |i|
       if board[i].current_piece == ' '
         print "|#{board[i].current_piece}"
@@ -119,7 +119,7 @@ module ShowBoard
     end
     print '|'
     puts ''
-    print '      A B C D E F G H'
+    print '               A B C D E F G H'
     puts ''
     puts ''
   end
