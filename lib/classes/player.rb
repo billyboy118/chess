@@ -2,7 +2,7 @@
 
 # class which create players
 class Player
-  attr_reader :name
+  attr_reader :name, :colour
 
   def initialize(name, colour)
     @name = name

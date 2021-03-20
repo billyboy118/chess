@@ -1,6 +1,6 @@
 # frozen_string_literal: false
 
-# class which create players
+# class which create bishop pieces to put on the board
 class Bishop
   attr_reader :piece_name, :piece
 

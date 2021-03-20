@@ -29,7 +29,6 @@ def start
   StartText.welcome_message
   game_mode = StartText.lets_play
   game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
-  
 end
 
 def initate_single_player
@@ -37,6 +36,6 @@ def initate_single_player
   puts "\n Single player currently unavailable"
 end
 
-#start
-bishop = Bishop.new('Bill', 'Black')
-puts bishop.piece
+start
+# bishop = Bishop.new('Bill', 'Black')
+# puts bishop.piece

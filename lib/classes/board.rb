@@ -2,7 +2,7 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_reader :board
+  attr_reader :board, :player1
 
   include ShowBoard
 
@@ -19,7 +19,10 @@ class Board
         @board.push(Square.new([horizontal, vertical]))
       end
     end
-    show_board
+    
+    setup_board
+   # board.each { |board| p board.position}
   end
+
 
 end
