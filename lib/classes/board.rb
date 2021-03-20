@@ -2,7 +2,7 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_reader :board, :player1
+  attr_reader :board, :player1, :player2
 
   include ShowBoard
 

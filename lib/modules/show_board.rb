@@ -4,9 +4,7 @@
 module ShowBoard
   def setup_board
     assign_white
-    #assign_black
-    
-
+    assign_black
     show_board
   end
 
@@ -21,6 +19,20 @@ module ShowBoard
     board[7].current_piece = Rook.new(player1.name, player1.colour)
     (8..15).each do |i|
       board[i].current_piece = Pawn.new(player1.name, player1.colour)
+    end
+  end
+
+  def assign_black
+    board[56].current_piece = Rook.new(player2.name, player2.colour)
+    board[57].current_piece = Knight.new(player2.name, player2.colour)
+    board[58].current_piece = Bishop.new(player2.name, player2.colour)
+    board[59].current_piece = Queen.new(player2.name, player2.colour)
+    board[60].current_piece = King.new(player2.name, player2.colour)
+    board[61].current_piece = Bishop.new(player2.name, player2.colour)
+    board[62].current_piece = Knight.new(player2.name, player2.colour)
+    board[63].current_piece = Rook.new(player2.name, player2.colour)
+    (48..55).each do |i|
+      board[i].current_piece = Pawn.new(player2.name, player2.colour)
     end
   end
 
