@@ -19,10 +19,7 @@ class Board
         @board.push(Square.new([horizontal, vertical]))
       end
     end
-    
     setup_board
-   # board.each { |board| p board.position}
+    # board.each { |board| p board.position}
   end
-
-
 end
