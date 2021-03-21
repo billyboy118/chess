@@ -57,10 +57,9 @@ module PlayerInput
 
   def assign_value(arr)
     /[1-8]/.match(arr[0]) ? arr.reverse! : arr
-    puts arr
     arr[0] = NUMBERS[arr[0]]
     arr[1] = arr[1].to_i - 1
-    arr
+    find_square(arr)
   end
 
 end

@@ -29,7 +29,7 @@ class Board
     # board.each { |board| p board.position}
   end
 
-  
+
 
   def game_cycle
     GameMessages.whos_who(player1, player2)
@@ -41,15 +41,18 @@ class Board
 
   def player_input(player)
     @current_player = player
-    current_player.selected_piece = input_intro(1)
+    current_player.selected_grid = input_intro(1)
+    p current_player.selected_grid
     # I think I will add an if statement here where whereI will incorporate the return from PlayerInput.additional options
     validate_piece
     move_piece = PlayerInput.position(2)
     board.validate_move(move_piece, player)
   end
 
-  def find_square
-
+  def find_square(input)
+    board.each do |square|
+      return square if square.position == input
+    end
   end
 
   
