@@ -2,7 +2,8 @@
 
 # class which create queen pieces to put on the board
 class Queen
-  attr_reader :piece_name, :piece
+  attr_reader :piece_name, :piece, :colour
+  attr_accessor :current_location
 
   include ChessPieces
 
@@ -11,5 +12,6 @@ class Queen
     @player_name = name
     @colour = colour
     @piece = get_piece(piece_name, @colour)
+    @current_location = nil
   end
 end

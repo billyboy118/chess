@@ -3,7 +3,7 @@
 # this module looks at the player input and validates/provides a figure array which can be used
 module PlayerInput
   NUMBERS = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }.freeze
-  
+
   def input_intro(num)
     show_board
     next_turn(current_player)
@@ -12,13 +12,19 @@ module PlayerInput
     position(num)
   end
 
+  def select_piece_retry(num)
+    show_board
+    puts game_message.yellow
+    position(num)
+  end
+
   def position(num = 'go')
     puts 'Hit Enter for more options'.red
     case num
-    when 1 then print 'Which piece would you like to select?: '
+    when 1 then print 'Which piece would you like to select?: ' 
     when 2 then print 'Where would you like to move this piece to?: '
     else
-      print "Where would you like to #{string}?: "
+      print "Where would you like to #{num}?: "
     end
     response = gets.chomp
     response == '' ? additional_options(num) : convert(response)
@@ -56,10 +62,11 @@ module PlayerInput
   end
 
   def assign_value(arr)
+
+    
     /[1-8]/.match(arr[0]) ? arr.reverse! : arr
     arr[0] = NUMBERS[arr[0]]
     arr[1] = arr[1].to_i - 1
     find_square(arr)
   end
-
 end

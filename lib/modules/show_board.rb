@@ -5,6 +5,7 @@ module ShowBoard
   def setup_board
     assign_white
     assign_black
+    assign_locations_to_pieces
     show_board
   end
 
@@ -34,6 +35,20 @@ module ShowBoard
     (48..55).each do |i|
       board[i].current_piece = Pawn.new(player2.name, player2.colour)
     end
+  end
+
+  def assign_locations_to_pieces
+    board.each do |square|
+      if square.current_piece != ' '
+        raw_location = square.position
+        square.current_piece.current_location = show_game_location(raw_location)
+      end
+    end
+  end
+
+  def show_game_location(raw_location)
+    letters = { 0 => 'A', 1 => 'B', 2 => 'C', 3 => 'D', 4 => 'E', 5 => 'F', 6 => 'G', 7 => 'H' }
+    "#{letters[raw_location[0]]}, #{raw_location[1] + 1}"
   end
 
   def show_board
