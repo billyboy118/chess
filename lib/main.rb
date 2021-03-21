@@ -10,6 +10,10 @@ require 'start_text'
 require 'two_player'
 require 'player'
 require 'square'
+require 'instruction'
+require 'game_messages'
+require 'move_input'
+require 'validate_piece_selection'
 require 'board'
 require 'chess_pieces'
 require 'bishop'
@@ -18,9 +22,9 @@ require 'knight'
 require 'pawn'
 require 'queen'
 require 'rook'
-require 'move_input'
-require 'game_messages'
-require 'instruction'
+
+
+
 
 require 'colorize'
 require 'tty-prompt'

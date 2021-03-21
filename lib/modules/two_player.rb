@@ -6,8 +6,8 @@ module TwoPlayer
     names = player_names(2)
     player1 = Player.new(names[0], 'White')
     player2 = Player.new(names[1], 'Black')
-    Board.new(player1, player2)
-    game_cycle(player1, player2)
+    board = Board.new(player1, player2)
+    board.game_cycle
   end
 
   def self.player_names(num)
@@ -20,12 +20,5 @@ module TwoPlayer
     StartText.welcome_message
     puts "\nHello #{names[0]} & #{names[1]} lets play some chess!"
     names
-  end
-
-  def self.game_cycle(player1, player2)
-    GameMessages.whos_who(player1, player2)
-
-    while 
-
   end
 end

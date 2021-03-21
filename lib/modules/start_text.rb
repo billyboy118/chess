@@ -44,9 +44,4 @@ puts '            Lets play some chess'.light_blue
     sleep 3
     lets_play
   end
-
-
-
-
-
 end
