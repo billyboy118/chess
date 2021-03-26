@@ -4,11 +4,12 @@
 module PlayerInput
   NUMBERS = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }.freeze
 
+
   def input_intro(num)
     show_board
-    next_turn(current_player)
-    Instructions.short_instructions if counter < 3
-    next_turn(current_player)
+    next_turn(current_player) if num == 1
+    Instructions.short_instructions if counter < 3 && num == 1
+    next_turn(current_player) if num == 1
     position(num)
   end
 
@@ -19,10 +20,10 @@ module PlayerInput
   end
 
   def position(num = 'go')
-    puts 'Hit Enter for more options'.red
+    puts "\nHit Enter for more options\n".red
     case num
-    when 1 then print 'Which piece would you like to select?: ' 
-    when 2 then print 'Where would you like to move this piece to?: '
+    when 1 then print 'Which piece would you like to select?: '
+    when 2 then print "\n#{game_message.yellow}\nWhere would you like to move this piece to?: "
     else
       print "Where would you like to #{num}?: "
     end
@@ -33,9 +34,9 @@ module PlayerInput
   def additional_options(num)
     prompt = TTY::Prompt.new
     greeting = puts "\nWhat would you like to do?"
-    choices = ['Restart Turn', 'Concede (not currently available)', 'View Instructions']
+    choices = ['Resume', 'Restart Turn', 'Concede (not currently available)', 'View Instructions', 'Save Game']
     prompt.select(greeting, choices)
-    input_intro(num)
+    'hello'
   end
 
   def convert(str)
@@ -62,8 +63,6 @@ module PlayerInput
   end
 
   def assign_value(arr)
-
-    
     /[1-8]/.match(arr[0]) ? arr.reverse! : arr
     arr[0] = NUMBERS[arr[0]]
     arr[1] = arr[1].to_i - 1

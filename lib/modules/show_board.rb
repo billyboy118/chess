@@ -52,6 +52,7 @@ module ShowBoard
   end
 
   def show_board
+    assign_locations_to_pieces
     StartText.welcome_message
     puts ''
     print '            8 '

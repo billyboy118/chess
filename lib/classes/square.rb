@@ -9,8 +9,4 @@ class Square
     @position = place
     @current_piece = ' '
   end
-
-
-
-  
 end

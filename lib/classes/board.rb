@@ -2,9 +2,9 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_reader :board, :player1, :player2, :current_player, :counter
-  attr_accessor :game_message
-  
+  attr_reader :board, :player1, :player2, :current_player
+  attr_accessor :game_message, :counter
+
   include ShowBoard
   include GameMessages
   include PlayerInput
@@ -29,29 +29,33 @@ class Board
     setup_board
     # board.each { |board| p board.position}
   end
-  
 
   def game_cycle
     GameMessages.whos_who(player1, player2)
     while player1.winner.nil? && player2.winner.nil?
-      counter.odd? ? player_input(player1) : board.player_input(player2)
-      counter += 1
+      @current_player = if counter.odd?
+                          player1
+                        else
+                          player2
+                        end
+      player_input
+      @counter += 1
     end
   end
 
-  def player_input(player)
-    @current_player = player
+  def player_input
     grid_select
-    # p current_player.selected_grid
-    # I NEED TO ADD A METHOD HERE SIMILAR TOP THE  GRID_SELECT METHOD
-    
-    move_piece = PlayerInput.position(2)
-    board.validate_move(move_piece, player)
+    move_to
   end
 
   def grid_select
     current_player.selected_grid = input_intro(1)
     current_player.selected_grid = select_piece_retry(1) until validate_piece == true
+  end
+
+  def move_to
+    current_player.selected_move = input_intro(2)
+    current_player.selected_move = select_piece_retry(2) until validate_move == true
   end
 
   def find_square(input)

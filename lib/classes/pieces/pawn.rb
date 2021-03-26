@@ -13,5 +13,6 @@ class Pawn
     @colour = colour
     @piece = get_piece(piece_name, @colour)
     @current_location = nil
+    @moves = [0, 1]
   end
 end
