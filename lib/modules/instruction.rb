@@ -18,6 +18,5 @@ module Instructions
 
   def self.full_instruction
     puts 'These will be coming shortly'
-    
   end
 end

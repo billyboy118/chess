@@ -42,6 +42,9 @@ module PlayerInput
     case response
     when 'Resume' then position
     when 'Restart Turn' then @game_phase = 1
+    when 'View Instructions'
+      Instructions.full_instruction
+      position
     end
 
   end

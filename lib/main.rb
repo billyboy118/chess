@@ -17,15 +17,13 @@ require 'validate_piece_selection'
 require 'navigate_game'
 require 'board'
 require 'chess_pieces'
+require 'pieces'
 require 'bishop'
 require 'king'
 require 'knight'
 require 'pawn'
 require 'queen'
 require 'rook'
-
-
-
 
 require 'colorize'
 require 'tty-prompt'
