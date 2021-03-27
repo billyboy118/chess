@@ -13,6 +13,7 @@ module NavigateGame
     while game_phase < 3
       grid_select_intro if game_phase == 1
       grid_select if game_phase == 2
+
     end
   end
 
@@ -36,8 +37,8 @@ module NavigateGame
 
   def move_to_intro
     current_player.selected_move = input_intro
+    validate_move
     @game_phase = 4 if game_phase != 1
-    validate_piece
   end
 
   def move_to

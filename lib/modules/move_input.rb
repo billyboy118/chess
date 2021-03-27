@@ -41,7 +41,8 @@ module PlayerInput
   def prompt_response(response)
     case response
     when 'Resume' then position
-    when 'Restart Turn' then @game_phase = 1
+    when 'Restart Turn'
+      @game_phase = 1
     when 'View Instructions'
       Instructions.full_instruction
       position
