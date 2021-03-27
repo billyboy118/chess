@@ -21,7 +21,6 @@ class Pieces
   def legal_move
     calculate_positions
     can_move_be_made
-    # p @board
   end
 
   def calculate_positions
@@ -31,8 +30,10 @@ class Pieces
     end
     puts "potential omves #{potential_moves}"
   end
-  #move can be made
-  def can_move_be_made
 
+  def can_move_be_made
+    if potential_moves.include?(move_to.position)
+      puts 'indeed ir is true'
+    end
   end
 end

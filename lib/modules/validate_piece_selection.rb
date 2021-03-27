@@ -24,18 +24,32 @@ module ValidatePieceSelection
   def validate_move
     return if current_player.selected_move == 1
 
+    friendly_piece
     assign_piece_variables
     current_player.selected_piece.legal_move
+    make_move
 
-    current_player.selected_move.current_piece = current_player.selected_piece
-    current_player.selected_grid.current_piece = ' '
-    true
+    
   end
+  
+  def friendly_piece
+
+
+  end
+
 
   def assign_piece_variables
     selected_piece = current_player.selected_piece
     selected_piece.move_from = current_player.selected_grid.position
     selected_piece.move_to = current_player.selected_move
     selected_piece.board = board
+  end
+
+
+
+  def make_move
+    current_player.selected_move.current_piece = current_player.selected_piece
+    current_player.selected_grid.current_piece = ' '
+    true
   end
 end
