@@ -3,12 +3,13 @@
 # this class creates the board with the help of the Squares class
 class Board
   attr_reader :board, :player1, :player2, :current_player
-  attr_accessor :game_message, :counter
+  attr_accessor :game_message, :counter, :game_phase
 
   include ShowBoard
   include GameMessages
   include PlayerInput
   include ValidatePieceSelection
+  include NavigateGame
 
   def initialize(player1, player2 = nil)
     @board = []
@@ -17,6 +18,7 @@ class Board
     @player2 = player2
     @current_player = nil
     @game_message = ''
+    @game_phase = 1
     create_board
   end
 
@@ -40,23 +42,11 @@ class Board
                         end
       player_input
       @counter += 1
+      @game_phase = 1
     end
   end
 
-  def player_input
-    grid_select
-    move_to
-  end
-
-  def grid_select
-    current_player.selected_grid = input_intro(1)
-    current_player.selected_grid = select_piece_retry(1) until validate_piece == true
-  end
-
-  def move_to
-    current_player.selected_move = input_intro(2)
-    current_player.selected_move = select_piece_retry(2) until validate_move == true
-  end
+  
 
   def find_square(input)
     board.each do |square|

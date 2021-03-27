@@ -4,39 +4,46 @@
 module PlayerInput
   NUMBERS = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }.freeze
 
-
-  def input_intro(num)
+  def input_intro
     show_board
-    next_turn(current_player) if num == 1
-    Instructions.short_instructions if counter < 3 && num == 1
-    next_turn(current_player) if num == 1
-    position(num)
+    next_turn(current_player) if game_phase == 1
+    Instructions.short_instructions if counter < 3 && game_phase == 1
+    next_turn(current_player) if game_phase == 1
+    position
   end
 
-  def select_piece_retry(num)
+  def select_piece_retry
     show_board
     puts game_message.yellow
-    position(num)
+    position
   end
 
-  def position(num = 'go')
+  def position
     puts "\nHit Enter for more options\n".red
-    case num
-    when 1 then print 'Which piece would you like to select?: '
-    when 2 then print "\n#{game_message.yellow}\nWhere would you like to move this piece to?: "
+    case game_phase
+    when 1..2 then print 'Which piece would you like to select?: '
+    when 3..4 then print "\n#{game_message.yellow}\nWhere would you like to move this piece to?: "
     else
-      print "Where would you like to #{num}?: "
+      print 'Where would you like to go?: '
     end
     response = gets.chomp
-    response == '' ? additional_options(num) : convert(response)
+    response == '' ? additional_options : convert(response)
   end
 
-  def additional_options(num)
+  def additional_options
     prompt = TTY::Prompt.new
     greeting = puts "\nWhat would you like to do?"
     choices = ['Resume', 'Restart Turn', 'Concede (not currently available)', 'View Instructions', 'Save Game']
-    prompt.select(greeting, choices)
-    'hello'
+    response = prompt.select(greeting, choices)
+    prompt_response(response)
+  end
+
+  def prompt_response(response)
+    case response
+    when 'Resume' then position
+    when 'Restart Turn' then @game_phase = 1
+    end
+
   end
 
   def convert(str)
