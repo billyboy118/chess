@@ -31,8 +31,8 @@ class Pieces
     end
     puts "potential omves #{potential_moves}"
   end
-
+  #move can be made
   def can_move_be_made
-    
+
   end
 end
