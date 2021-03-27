@@ -26,7 +26,7 @@ module PlayerInput
     else
       print 'Where would you like to go?: '
     end
-    response = gets.chomp
+    response = gets.chomp.gsub(/[^A-Za-z0-9\s]/i, '')
     response == '' ? additional_options : convert(response)
   end
 
