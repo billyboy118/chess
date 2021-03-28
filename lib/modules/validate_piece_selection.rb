@@ -36,7 +36,6 @@ module ValidatePieceSelection
   end
 
   def friendly_piece
-    puts current_player.selected_grid.current_piece
 
     return if current_player.selected_move.current_piece == ' ' || current_player.selected_grid.current_piece == ' '
     return unless current_player.selected_move.current_piece.colour == @current_player.colour

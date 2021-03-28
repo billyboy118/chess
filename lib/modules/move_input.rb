@@ -77,6 +77,6 @@ module PlayerInput
     /[1-8]/.match(arr[0]) ? arr.reverse! : arr
     arr[0] = NUMBERS[arr[0]]
     arr[1] = arr[1].to_i - 1
-    find_square(arr)
+    Generic.find_square(arr, board)
   end
 end

@@ -28,7 +28,6 @@ class Pieces
       new_move = [move_from[0] + move[0], move_from[1] + move[1]]
       potential_moves.push(new_move)
     end
-    puts "potential omves #{potential_moves}"
   end
 
   def can_move_be_made
@@ -44,9 +43,16 @@ class Pieces
       new_move = move_from
       8.times do
         new_move = [new_move[0] + move[0], new_move[1] + move[1]]
+        break if new_move.any? { |num| num.negative? || num > 7 }
+        break if piece_in_path(new_move) == false
         return true if new_move == move_to.position
       end
     end
-    false
+  end
+
+  def piece_in_path(new_move)
+    incrimented_square = Generic.find_square(new_move, board)
+    puts "this is insquare #{incrimented_square.current_piece}"
+    return false if new_move != move_to.position && incrimented_square.current_piece != ' '
   end
 end
