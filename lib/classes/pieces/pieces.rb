@@ -20,7 +20,7 @@ class Pieces
 
   def legal_move
     calculate_positions
-    return true if can_move_be_made
+    can_move_be_made
   end
 
   def calculate_positions
@@ -32,8 +32,21 @@ class Pieces
   end
 
   def can_move_be_made
-    if potential_moves.include?(move_to.position)
+    if %w[Queen Rook Bishop].include?(piece_name)
+      loop_piece
+    elsif potential_moves.include?(move_to.position)
       true
     end
+  end
+
+  def loop_piece
+    moves.each do |move|
+      new_move = move_from
+      8.times do
+        new_move = [new_move[0] + move[0], new_move[1] + move[1]]
+        return true if new_move == move_to.position
+      end
+    end
+    false
   end
 end
