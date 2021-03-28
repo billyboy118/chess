@@ -6,13 +6,23 @@ class Pawn < Pieces
     super(name, colour)
     @piece_name = 'Pawn'
     @piece = get_piece(piece_name, @colour)
-    @moves = [[0, 1]]
-    @special_moves = [[1, 1], [-1, 1]]
+    @moves = []
+    @special_moves = []
+    allocate_moves
+  end
+
+  def allocate_moves
+    if colour == 'White'
+      @moves = [[0, 1]]
+      @special_moves = [[1, 1], [-1, 1], [0, 2]]
+    else
+      @moves = [[0, -1]]
+      @special_moves = [[1, -1], [-1, 1], [0, -2]]
+    end
   end
 
   def potential
     p @move_from.position
     p @move_to.position
   end
-
 end

@@ -6,6 +6,6 @@ class Rook < Pieces
     super(name, colour)
     @piece_name = 'Rook'
     @piece = get_piece(piece_name, @colour)
-    @moves = []
+    @moves = [[0, 1], [-1, 0], [1, 0], [0, -1]]
   end
 end

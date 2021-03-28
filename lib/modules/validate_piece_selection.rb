@@ -24,11 +24,15 @@ module ValidatePieceSelection
 
   def validate_move
     return true if game_phase == 1
+
     return if friendly_piece == true
 
     assign_piece_variables
-    current_player.selected_piece.legal_move
-    make_move
+    if current_player.selected_piece.legal_move == true
+      make_move
+    else
+      @game_message = 'This is an illegal move'
+    end
   end
 
   def friendly_piece

@@ -6,6 +6,6 @@ class Knight < Pieces
     super(name, colour)
     @piece_name = 'Knight'
     @piece = get_piece(piece_name, @colour)
-    @moves = []
+    @moves = [[-1, 2], [1, 2], [2, 1], [2, -1], [-1, -2], [1, -2], [-2, 1], [-2, -1]]
   end
 end

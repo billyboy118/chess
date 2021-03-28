@@ -20,7 +20,7 @@ class Pieces
 
   def legal_move
     calculate_positions
-    can_move_be_made
+    return true if can_move_be_made
   end
 
   def calculate_positions
@@ -33,7 +33,7 @@ class Pieces
 
   def can_move_be_made
     if potential_moves.include?(move_to.position)
-      puts 'indeed ir is true'
+      true
     end
   end
 end

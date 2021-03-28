@@ -6,6 +6,6 @@ class Bishop < Pieces
     super(name, colour)
     @piece_name = 'Bishop'
     @piece = get_piece(piece_name, @colour)
-    @moves = []
+    @moves = [[-1, 1], [1, 1], [-1, -1], [1, -1]]
   end
 end
