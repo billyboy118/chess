@@ -7,17 +7,19 @@ class Pawn < Pieces
     @piece_name = 'Pawn'
     @piece = get_piece(piece_name, @colour)
     @moves = []
-    @special_moves = []
-    allocate_moves
   end
 
   def allocate_moves
-    if colour == 'White'
-      @moves = [[0, 1]]
-      @special_moves = [[1, 1], [-1, 1], [0, 2]]
-    else
-      @moves = [[0, -1]]
-      @special_moves = [[1, -1], [-1, 1], [0, -2]]
-    end
+    return @moves = [[0, 2], [0, 1], [1, 1], [-1, 1]] if colour == 'White'
+
+    @moves = [[0, -2], [0, -1], [1, -1], [-1, 1]]
+  end
+
+  def calculate_pawn
+    allocate_moves
+    moves.shift if has_piece_moved == 'Yes'
+    can_pawn_take
+    calculate_positions
+    return true if potential_moves.include?(move_to.position)
   end
 end

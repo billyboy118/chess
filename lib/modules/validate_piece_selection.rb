@@ -51,6 +51,7 @@ module ValidatePieceSelection
   end
 
   def make_move
+    current_player.selected_piece.has_piece_moved = 'Yes'
     current_player.selected_move.current_piece = current_player.selected_piece
     current_player.selected_grid.current_piece = ' '
     true

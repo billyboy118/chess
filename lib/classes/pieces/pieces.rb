@@ -3,7 +3,7 @@
 # super class for all chess pieces to inherit from
 class Pieces
   attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves, :potential_moves
-  attr_accessor :current_location, :move_from, :move_to, :board
+  attr_accessor :current_location, :move_from, :move_to, :board, :has_piece_moved
 
   include ChessPieces
 
@@ -16,11 +16,11 @@ class Pieces
     @move_from = []
     @move_to = []
     @board = []
+    @has_piece_moved = 'No'
   end
 
   def legal_move
-    calculate_positions
-    can_move_be_made
+    return true if can_move_be_made == true
   end
 
   def calculate_positions
@@ -31,10 +31,13 @@ class Pieces
   end
 
   def can_move_be_made
-    if %w[Queen Rook Bishop].include?(piece_name)
-      loop_piece
-    elsif potential_moves.include?(move_to.position)
-      true
+    case piece_name
+    when 'Queen', 'Rook', 'Bishop' then loop_piece
+    when 'King' then calculate_king
+    when 'Pawn' then calculate_pawn
+    else
+      calculate_positions
+      return true if potential_moves.include?(move_to.position)
     end
   end
 
