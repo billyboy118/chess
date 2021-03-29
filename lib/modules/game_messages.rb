@@ -7,9 +7,5 @@ module GameMessages
     puts "\u2659 #{player2.name} your colour is black\n\nWhites go first."
     sleep 2
   end
-
-  def next_turn(player)
-    show_board
-    puts "#{player.name} it is your go."
-  end
+  
 end

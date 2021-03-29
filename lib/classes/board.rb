@@ -44,10 +44,4 @@ class Board
       @game_phase = 1
     end
   end
-
-  # def find_square(input)
-  #   board.each do |square|
-  #     return square if square.position == input
-  #   end
-  # end
 end

@@ -6,7 +6,7 @@ module ShowBoard
     assign_white
     assign_black
     assign_locations_to_pieces
-    show_board
+    show_board('')
   end
 
   def assign_white
@@ -51,7 +51,7 @@ module ShowBoard
     "#{letters[raw_location[0]]}, #{raw_location[1] + 1}"
   end
 
-  def show_board
+  def show_board(name)
     assign_locations_to_pieces
     StartText.welcome_message
     puts ''
@@ -138,5 +138,6 @@ module ShowBoard
     print '               A B C D E F G H'
     puts ''
     puts ''
+    puts name.to_s
   end
 end

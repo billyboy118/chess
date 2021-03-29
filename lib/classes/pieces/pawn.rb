@@ -20,9 +20,4 @@ class Pawn < Pieces
       @special_moves = [[1, -1], [-1, 1], [0, -2]]
     end
   end
-
-  def potential
-    p @move_from.position
-    p @move_to.position
-  end
 end

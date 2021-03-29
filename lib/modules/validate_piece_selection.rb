@@ -3,9 +3,8 @@
 # this module looks at the player input and validates/provides a figure array which can be used
 module ValidatePieceSelection
   def validate_piece
- 
     return if current_player.selected_grid == 1
-  
+
     current_piece = current_player.selected_grid.current_piece
     if current_piece == ' '
       @game_message = "You have selected an empty square on the board, please try again\n\n"
@@ -36,7 +35,6 @@ module ValidatePieceSelection
   end
 
   def friendly_piece
-
     return if current_player.selected_move.current_piece == ' ' || current_player.selected_grid.current_piece == ' '
     return unless current_player.selected_move.current_piece.colour == @current_player.colour
 

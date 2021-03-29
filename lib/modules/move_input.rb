@@ -5,16 +5,15 @@ module PlayerInput
   NUMBERS = { 'a' => 0, 'b' => 1, 'c' => 2, 'd' => 3, 'e' => 4, 'f' => 5, 'g' => 6, 'h' => 7 }.freeze
 
   def input_intro
-    show_board
-    next_turn(current_player) if game_phase == 1
+    show_board("#{current_player.name} it is your turn!")
     Instructions.short_instructions if counter < 3 && game_phase == 1
-    next_turn(current_player) if game_phase == 1
     position
   end
 
   def select_piece_retry
-    show_board
-    puts game_message.yellow
+    show_board("#{current_player.name} it is your turn!")
+    puts "\n#{game_message.yellow}"
+    @game_message = ''
     position
   end
 
@@ -22,7 +21,7 @@ module PlayerInput
     puts "\nHit Enter for more options\n".red
     case game_phase
     when 1..2 then print 'Which piece would you like to select?: '
-    when 3..4 then print "\n#{game_message.yellow}\nWhere would you like to move this piece to?: "
+    when 3..4 then print "\n#{game_message.yellow}Where would you like to move this piece to?: "
     else
       print 'Where would you like to go?: '
     end
@@ -42,12 +41,12 @@ module PlayerInput
     case response
     when 'Resume' then position
     when 'Restart Turn'
+
       @game_phase = 1
     when 'View Instructions'
       Instructions.full_instruction
       position
     end
-
   end
 
   def convert(str)
