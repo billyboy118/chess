@@ -17,7 +17,7 @@ class Pawn < Pieces
 
   def calculate_pawn
     allocate_moves
-    moves.pop if has_piece_moved == 'Yes'
+    moves.pop if no_of_moves == 'Yes'
     can_pawn_take
     calculate_positions
     return true if potential_moves.include?(move_to.position)
@@ -59,7 +59,7 @@ class Pawn < Pieces
   end
 
   def calculate_double_front
-    return if has_piece_moved == 'Yes'
+    return if no_of_moves == 1
 
     double_front = [move_from[0] + moves[3][0], move_from[1] + moves[3][1]]
     Generic.find_square(double_front, board) if correct_range(double_front)

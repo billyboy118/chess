@@ -3,7 +3,7 @@
 # super class for all chess pieces to inherit from
 class Pieces
   attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves, :potential_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :has_piece_moved
+  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves
 
   include ChessPieces
 
@@ -16,7 +16,7 @@ class Pieces
     @move_from = []
     @move_to = []
     @board = []
-    @has_piece_moved = 'No'
+    @no_of_moves = 0
   end
 
   def legal_move
