@@ -2,8 +2,8 @@
 
 # super class for all chess pieces to inherit from
 class Pieces
-  attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves, :potential_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :has_piece_moved
+  attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves
+  attr_accessor :current_location, :move_from, :move_to, :board, :has_piece_moved, :potential_moves
 
   include ChessPieces
 
