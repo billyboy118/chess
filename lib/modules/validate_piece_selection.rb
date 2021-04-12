@@ -27,7 +27,7 @@ module ValidatePieceSelection
     return if friendly_piece == true
 
     assign_piece_variables
-    if current_player.selected_piece.legal_move == true
+    if current_player.selected_piece.legal_move(counter) == true
       make_move
     else
       @game_message = 'This is an illegal move'
@@ -48,6 +48,7 @@ module ValidatePieceSelection
     selected_piece.move_from = current_player.selected_grid.position
     selected_piece.move_to = current_player.selected_move
     selected_piece.board = board
+
   end
 
   def make_move

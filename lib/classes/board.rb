@@ -40,6 +40,7 @@ class Board
                           player2
                         end
       player_input
+      current_player.selected_piece.potential_moves = []
       @counter += 1
       @game_phase = 1
     end

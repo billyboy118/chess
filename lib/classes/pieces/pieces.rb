@@ -2,10 +2,13 @@
 
 # super class for all chess pieces to inherit from
 class Pieces
-  attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves, :potential_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves
+  attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves
+  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter
 
   include ChessPieces
+
+  @@passant_eligable = 'No'
+  @@counter = 0
 
   def initialize(name, colour)
     @player_name = name
@@ -19,8 +22,15 @@ class Pieces
     @no_of_moves = 0
   end
 
-  def legal_move
-    return true if can_move_be_made == true
+  def legal_move(game_counter)
+    return unless can_move_be_made == true
+
+    @@passant_eligable = 'No' if @@counter == game_counter
+    puts @@passant_eligable
+    @@counter = game_counter + 1
+
+    # eligable en_passant pieces have been pushed into an array, now i need to figure out how to reset this if the player doesnt decide to use the move
+    true
   end
 
   def calculate_positions
