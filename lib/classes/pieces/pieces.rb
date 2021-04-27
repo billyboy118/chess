@@ -3,9 +3,10 @@
 # super class for all chess pieces to inherit from
 class Pieces
   attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter
+  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter, :passant_eligable
 
   include ChessPieces
+  include EnPassant
 
   @@passant_eligable = 'No'
   @@counter = 0
@@ -22,14 +23,15 @@ class Pieces
     @no_of_moves = 0
   end
 
+  def passant_eligable_selection(choice)
+    @@passant_eligable = choice
+  end
+
   def legal_move(game_counter)
     return unless can_move_be_made == true
 
     @@passant_eligable = 'No' if @@counter == game_counter
-    puts @@passant_eligable
     @@counter = game_counter + 1
-
-    # eligable en_passant pieces have been pushed into an array, now i need to figure out how to reset this if the player doesnt decide to use the move
     true
   end
 
@@ -51,6 +53,7 @@ class Pieces
     end
   end
 
+  # rubocop: disable Metrics/AbcSize
   def loop_piece
     moves.each do |move|
       new_move = move_from
@@ -62,10 +65,10 @@ class Pieces
       end
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   def piece_in_path(new_move)
     incrimented_square = Generic.find_square(new_move, board)
-    puts "this is insquare #{incrimented_square.current_piece}"
     return false if new_move != move_to.position && incrimented_square.current_piece != ' '
   end
 end
