@@ -11,4 +11,10 @@ module Generic
       return square if square.position == input
     end
   end
+
+  def self.find_square_index(input, board)
+    board.each_with_index do |square, i|
+      return i if square.position == input
+    end
+  end
 end
