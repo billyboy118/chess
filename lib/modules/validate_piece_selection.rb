@@ -48,13 +48,29 @@ module ValidatePieceSelection
     selected_piece.move_from = current_player.selected_grid.position
     selected_piece.move_to = current_player.selected_move
     selected_piece.board = board
-
   end
 
   def make_move
     current_player.selected_piece.no_of_moves += 1
+    return true if en_passant_make_move == true
+
     current_player.selected_move.current_piece = current_player.selected_piece
     current_player.selected_grid.current_piece = ' '
     true
+  end
+
+  # this method look at the pawn and determines if it is an en passant move, this is needed as this move is the only 
+  # move where the player can take a piece without landing directly on the oponents square
+  def en_passant_make_move
+    
+    piece = current_player.selected_piece
+
+    hello = piece.no_of_moves - 1
+    puts "yes- #{current_player.selected_grid.current_piece}"
+    return unless piece.piece_name == 'Pawn'
+    return if piece.en_passant_move.nil?
+
+    #piece.pawn_move
+    #true
   end
 end
