@@ -31,7 +31,7 @@ class Pieces
     return unless can_move_be_made == true
 
     @@passant_eligable = 'No' if @@counter == game_counter
-    @@counter = game_counter + 1
+    @@counter = game_counter
     true
   end
 

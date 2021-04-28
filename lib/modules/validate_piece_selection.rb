@@ -69,7 +69,7 @@ module ValidatePieceSelection
     return unless piece.piece_name == 'Pawn'
     return if piece.en_passant_move.nil?
 
-    # piece.pawn_move
+    piece.pawn_move
     # true
   end
 end
