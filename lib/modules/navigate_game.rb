@@ -12,7 +12,6 @@ module NavigateGame
     end
   end
 
-  # 
   def grid_select_loop
     while game_phase < 3
       grid_select_intro if game_phase == 1

@@ -64,12 +64,10 @@ module ValidatePieceSelection
   def en_passant_make_move
     piece = current_player.selected_piece
 
-    # hello = piece.no_of_moves - 1
     puts "yes- #{current_player.selected_grid.current_piece}"
     return unless piece.piece_name == 'Pawn'
     return if piece.en_passant_move.nil?
 
     piece.pawn_move
-    # true
   end
 end

@@ -80,22 +80,28 @@ class Pawn < Pieces
   def pawn_move
     position_index = Generic.find_square_index(en_passant_move, board)
 
-    position_index -= 8 if colour == 'White'
-    position_index += 8 if colour == 'Black'
-  
-    puts "position index = #{board[position_index].current_piece.current_location}"
-    puts self.current_location
-    puts board[position_index - 1].current_piece
-    return if board[position_index - 1].current_piece == self
-
-    puts 'it works'
-    # here i need to run through each of the temp moves where I wil add the number to position _index
-    # I will then look at this index (need to create a new method for this in generic) and if there is not
-    # a piece there I will know that this is a en_passant move, I may then be able to figure out through the
-    # index which piece of the oposition I will need to remove
-    #moves.each_with_index do |move, index|
-    #  check_square = []
-    #end
+    colour == 'White' ? pawn_move_white(position_index) : pawn_move_black(position_index)
   end
 
+  def pawn_move_white(position_index)
+    index_move = [9, 7]
+    index_move.each do |num|
+      index = position_index - num
+      if board[position_index - num].current_piece == self
+        index = num == 9 ? index + 1 : index - 1
+        board[index].current_piece = ' '
+      end
+    end
+  end
+
+  def pawn_move_black(position_index)
+    index_move = [9, 7]
+    index_move.each do |num|
+      index = position_index + num
+      if board[position_index + num].current_piece == self
+        index = num == 9 ? index - 1 : index + 1
+        board[index].current_piece = ' '
+      end
+    end
+  end
 end
