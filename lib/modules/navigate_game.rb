@@ -2,7 +2,6 @@
 
 # this module navigates the player input and manages the in game options menu
 module NavigateGame
-
   # this method is called from the board class and is what initiates this navigate game cycle when the board class calls
   # this method game_phase == 1
   def player_input
@@ -34,7 +33,7 @@ module NavigateGame
   # this method is where the player will move the piece to and is invoked by the player_input method 
   def move_piece_loop
     while game_phase > 2 && game_phase < 5
-     # move_to_intro if game_phase == 3
+      # move_to_intro if game_phase == 3
       move_to if game_phase == 3
     end
   end

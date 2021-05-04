@@ -7,6 +7,17 @@ module Promotion
   def verify_promotion
     return unless piece_name == 'Pawn'
     return unless move_to.position[1].zero? || move_to.position[1] == 7
+
+    show_board
+    select_new_piece
+  end
+
+  def select_new_piece
+    prompt = TTY::Prompt.new
+    greeting = puts "\nWhat would you like to promote your piece to?"
+    choices = %w[Queen Knight Bishop Rook]
+    response = prompt.select(greeting, choices)
+
   end
 
 
