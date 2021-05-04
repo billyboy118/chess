@@ -8,6 +8,7 @@ class Pawn < Pieces
   @@en_passant = 0
 
   include PlayerInput
+  include Promotion
 
   def initialize(name, colour)
     super(name, colour)

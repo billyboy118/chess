@@ -35,7 +35,7 @@ module EnPassant
 
   # first stage
   def en_passant_eligable
-    if  move_to.position[1] == 3 || move_to.position[1] == 4
+    if move_to.position[1] == 3 || move_to.position[1] == 4
       allocate_moves
       possible_moves
       self.class.class_variable_get(:@@en_passant_pieces).unshift(self)
