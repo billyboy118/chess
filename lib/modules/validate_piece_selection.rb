@@ -56,6 +56,7 @@ module ValidatePieceSelection
 
     current_player.selected_move.current_piece = current_player.selected_piece
     current_player.selected_grid.current_piece = ' '
+    current_player.selected_piece.verify_promotion
     true
   end
 

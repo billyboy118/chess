@@ -7,6 +7,7 @@ class Pieces
 
   include ChessPieces
   include EnPassant
+  include Promotion
 
   @@passant_eligable = 'No'
   @@counter = 0
