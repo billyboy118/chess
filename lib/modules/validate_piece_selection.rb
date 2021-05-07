@@ -27,7 +27,7 @@ module ValidatePieceSelection
     return if friendly_piece == true
 
     assign_piece_variables
-    if current_player.selected_piece.legal_move == true
+    if current_player.selected_piece.legal_move(counter) == true
       make_move
     else
       @game_message = 'This is an illegal move'
@@ -51,9 +51,22 @@ module ValidatePieceSelection
   end
 
   def make_move
-    current_player.selected_piece.has_piece_moved = 'Yes'
+    current_player.selected_piece.no_of_moves += 1
+    return true if en_passant_make_move == true
+
     current_player.selected_move.current_piece = current_player.selected_piece
     current_player.selected_grid.current_piece = ' '
+    current_player.selected_piece.verify_promotion
     true
+  end
+
+  # this method look at the pawn and determines if it is an en passant move, this is needed as this move is the only 
+  # move where the player can take a piece without landing directly on the oponents square
+  def en_passant_make_move
+    piece = current_player.selected_piece
+    return unless piece.piece_name == 'Pawn'
+    return if piece.en_passant_move.nil?
+
+    piece.pawn_move
   end
 end

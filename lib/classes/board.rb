@@ -31,6 +31,7 @@ class Board
     setup_board
   end
 
+  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def game_cycle
     GameMessages.whos_who(player1, player2)
     while player1.winner.nil? && player2.winner.nil?
@@ -45,4 +46,5 @@ class Board
       @game_phase = 1
     end
   end
+  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
 end

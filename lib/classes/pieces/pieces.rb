@@ -3,9 +3,15 @@
 # super class for all chess pieces to inherit from
 class Pieces
   attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :has_piece_moved, :potential_moves
+  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter, :passant_eligable
 
   include ChessPieces
+  include EnPassant
+  include Promotion
+  include ShowBoard
+
+  @@passant_eligable = 'No'
+  @@counter = 0
 
   def initialize(name, colour)
     @player_name = name
@@ -16,11 +22,19 @@ class Pieces
     @move_from = []
     @move_to = []
     @board = []
-    @has_piece_moved = 'No'
+    @no_of_moves = 0
   end
 
-  def legal_move
-    return true if can_move_be_made == true
+  def passant_eligable_selection(choice)
+    @@passant_eligable = choice
+  end
+
+  def legal_move(game_counter)
+    return unless can_move_be_made == true
+
+    @@passant_eligable = 'No' if @@counter == game_counter
+    @@counter = game_counter
+    true
   end
 
   def calculate_positions
@@ -41,6 +55,7 @@ class Pieces
     end
   end
 
+  # rubocop: disable Metrics/AbcSize
   def loop_piece
     moves.each do |move|
       new_move = move_from
@@ -52,10 +67,10 @@ class Pieces
       end
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   def piece_in_path(new_move)
     incrimented_square = Generic.find_square(new_move, board)
-    puts "this is insquare #{incrimented_square.current_piece}"
     return false if new_move != move_to.position && incrimented_square.current_piece != ' '
   end
 end

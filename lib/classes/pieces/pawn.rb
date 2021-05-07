@@ -2,11 +2,20 @@
 
 # class which create pawn pieces to put on the board
 class Pawn < Pieces
+  attr_accessor :en_passant_pieces, :en_passant_move
+
+  @@en_passant_pieces = []
+  @@en_passant = 0
+
+  include PlayerInput
+  
+
   def initialize(name, colour)
     super(name, colour)
     @piece_name = 'Pawn'
     @piece = get_piece(piece_name, @colour)
     @moves = []
+    @en_passant_move = nil
   end
 
   def allocate_moves
@@ -17,10 +26,11 @@ class Pawn < Pieces
 
   def calculate_pawn
     allocate_moves
-    moves.pop if has_piece_moved == 'Yes'
+    moves.pop if no_of_moves.positive?
     can_pawn_take
+    en_passant_take
     calculate_positions
-    return true if potential_moves.include?(move_to.position)
+    en_passant_eligable if potential_moves.include?(move_to.position)
   end
 
   def can_pawn_take
@@ -28,7 +38,6 @@ class Pawn < Pieces
     right = calculate_right
     front = calculate_front
     double_front = calculate_double_front
-
     moves.delete_at(2) if look_potential_moves(right)
     moves.delete_at(1) if look_potential_moves(left)
     moves.delete_at(0) unless look_potential_moves(front)
@@ -43,25 +52,57 @@ class Pawn < Pieces
     position.nil? || position.current_piece == ' '
   end
 
-  def calculate_left
-    left = [move_from[0] + moves[1][0], move_from[1] + moves[1][1]]
+  def calculate_left(num = 0)
+    left = [move_from[0] + moves[1][0], move_from[1] + moves[1][1] + num]
     Generic.find_square(left, board) if correct_range(left)
   end
 
-  def calculate_right
-    right = [move_from[0] + moves[2][0], move_from[1] + moves[2][1]]
+  def calculate_right(num = 0)
+    right = [move_from[0] + moves[2][0], move_from[1] + moves[2][1] + num]
     Generic.find_square(right, board) if correct_range(right)
   end
 
-  def calculate_front
+  def calculate_front 
     front = [move_from[0] + moves[0][0], move_from[1] + moves[0][1]]
+
     Generic.find_square(front, board) if correct_range(front)
   end
 
+  # rubocop:disable Metrics/AbcSize
   def calculate_double_front
-    return if has_piece_moved == 'Yes'
+    return if no_of_moves.positive?
 
     double_front = [move_from[0] + moves[3][0], move_from[1] + moves[3][1]]
     Generic.find_square(double_front, board) if correct_range(double_front)
+  end
+  # rubocop:enable Metrics/AbcSize
+
+  # this move method identifies the piece that will need to be removed as a result of the en_passant move
+  def pawn_move
+    position_index = Generic.find_square_index(en_passant_move, board)
+
+    colour == 'White' ? pawn_move_white(position_index) : pawn_move_black(position_index)
+  end
+
+  def pawn_move_white(position_index)
+    index_move = [9, 7]
+    index_move.each do |num|
+      index = position_index - num
+      if board[position_index - num].current_piece == self
+        index = num == 9 ? index + 1 : index - 1
+        board[index].current_piece = ' '
+      end
+    end
+  end
+
+  def pawn_move_black(position_index)
+    index_move = [9, 7]
+    index_move.each do |num|
+      index = position_index + num
+      if board[position_index + num].current_piece == self
+        index = num == 9 ? index - 1 : index + 1
+        board[index].current_piece = ' '
+      end
+    end
   end
 end

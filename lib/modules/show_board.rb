@@ -51,7 +51,7 @@ module ShowBoard
     "#{letters[raw_location[0]]}, #{raw_location[1] + 1}"
   end
 
-  def show_board(name)
+  def show_board(name = nil)
     assign_locations_to_pieces
     StartText.welcome_message
     puts ''
