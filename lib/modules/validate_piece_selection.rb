@@ -64,8 +64,6 @@ module ValidatePieceSelection
   # move where the player can take a piece without landing directly on the oponents square
   def en_passant_make_move
     piece = current_player.selected_piece
-
-    puts "yes- #{current_player.selected_grid.current_piece}"
     return unless piece.piece_name == 'Pawn'
     return if piece.en_passant_move.nil?
 
