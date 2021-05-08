@@ -12,7 +12,8 @@ class King < Pieces
 
   def calculate_king
     calculate_positions
-    potential_moves.include?(move_to.position)
-    true
+    return true if potential_moves.include?(move_to.position)
+
+    false # to move king anywhere I can change this to a true
   end
 end
