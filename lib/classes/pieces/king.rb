@@ -24,11 +24,31 @@ class King < Pieces
 
     # return if check == true
     move_index = Generic.find_square_index(move_to.position, board)
+    return if check_colour(move_index) == false
+
     case move_index
     when 2, 58
-      castling move
+      castling_move_left(move_index)
     when 6, 62
-      castling move
+      castling_move_right(move_index)
     end
+  end
+
+  def check_colour(move_index)
+    sum = colour == 'White' ? 4 : 60
+    sum -= move_index
+    sum = sum.abs
+    puts sum
+    return true if sum == 2
+
+    false
+  end
+
+  def castling_move_left(move_index)
+
+  end
+
+  def castling_move_right(move_index)
+
   end
 end
