@@ -64,7 +64,21 @@ class King < Pieces
     i == checks ? castling_move(checks) : false
   end
 
-  #def castling_move(left_right)
-  #  return false if check_rook(left_right) == false
-  # end
+  def castling_move(left_right)
+    return false if check_rook(left_right) == false
+
+  end
+
+  def check_rook(left_right)
+    move_index = Generic.find_square_index(move_from, board)
+    case left_right
+    when 3
+      rook = board[move_index - 4]
+    when 2
+      rook = board[move_index + 3]
+    end
+    return false if rook.current_piece == ' ' || rook.current_piece.piece_name != 'Rook'
+
+    rook.current_piece.no_of_moves > 0 ? false : true
+  end
 end
