@@ -13,7 +13,7 @@ class King < Pieces
 
   def calculate_king
     calculate_positions
-    castling # return true if castlig == true # hide this so i can move the king anywhere
+    return true if castling == true # return true if castlig == true # hide this so i can move the king anywhere
     return true if potential_moves.include?(move_to.position)
 
     false # to move king anywhere I can change this to a true
@@ -67,8 +67,11 @@ class King < Pieces
   def castling_move(left_right)
     return false if check_rook(left_right) == false
 
+    move_rook(left_right)
+    true
   end
 
+  # looks at the move determines if is left or right and then decides if the rook is a legal move, if the rook is there
   def check_rook(left_right)
     move_index = Generic.find_square_index(move_from, board)
     case left_right
@@ -79,6 +82,20 @@ class King < Pieces
     end
     return false if rook.current_piece == ' ' || rook.current_piece.piece_name != 'Rook'
 
-    rook.current_piece.no_of_moves > 0 ? false : true
+    rook.current_piece.no_of_moves.positive? ? false : true
   end
+
+  # rubocop: disable Metrics/AbcSize
+  def move_rook(left_right)
+    move_index = Generic.find_square_index(move_from, board)
+    case left_right
+    when 3
+      board[move_index - 1].current_piece = board[move_index - 4].current_piece
+      board[move_index - 4].current_piece = ' '
+    when 2
+      board[move_index + 1].current_piece = board[move_index + 3].current_piece
+      board[move_index + 3].current_piece = ' '
+    end
+  end
+  # rubocop: enable Metrics/AbcSize
 end
