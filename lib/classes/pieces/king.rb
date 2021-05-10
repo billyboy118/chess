@@ -26,14 +26,10 @@ class King < Pieces
     move_index = Generic.find_square_index(move_to.position, board)
     return if check_colour(move_index) == false
 
-    case move_index
-    when 2, 58
-      castling_move_left(move_index)
-    when 6, 62
-      castling_move_right(move_index)
-    end
+    left_or_right(move_index)
   end
 
+  # checks that the player is not trying to castle the oposing players piece
   def check_colour(move_index)
     sum = colour == 'White' ? 4 : 60
     sum -= move_index
@@ -44,11 +40,31 @@ class King < Pieces
     false
   end
 
-  def castling_move_left(move_index)
-
+  # determines if the player is castling to the left or the right
+  def left_or_right(move_index)
+    case move_index
+    when 2, 58
+      castling_check_squares(3)
+    when 6, 62
+      castling_check_squares(2)
+    end
   end
 
-  def castling_move_right(move_index)
+  # checks that all the required squares to make the move are empty
+  def castling_check_squares(checks)
+    i = 0
+    index = colour == 'White' ? 4 : 60
+    checks.times do
+      index -= 1 if checks == 3
+      index += 1 if checks == 2
+      break if board[index].current_piece != ' '
 
+      i += 1
+    end
+    i == checks ? castling_move(checks) : false
   end
+
+  #def castling_move(left_right)
+  #  return false if check_rook(left_right) == false
+  # end
 end
