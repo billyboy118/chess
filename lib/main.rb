@@ -19,6 +19,7 @@ require 'board'
 require 'chess_pieces'
 require 'en_passant'
 require 'promotion'
+require 'check'
 
 require 'pieces'
 require 'bishop'

@@ -9,6 +9,7 @@ class Pieces
   include EnPassant
   include Promotion
   include ShowBoard
+  include Check
 
   @@passant_eligable = 'No'
   @@counter = 0
@@ -32,6 +33,7 @@ class Pieces
   def legal_move(game_counter)
     return unless can_move_be_made == true
 
+    start_check
     @@passant_eligable = 'No' if @@counter == game_counter
     @@counter = game_counter
     true
@@ -50,8 +52,8 @@ class Pieces
     when 'King' then calculate_king
     when 'Pawn' then calculate_pawn
     else
-      calculate_positions
-      return true if potential_moves.include?(move_to.position)
+      # calculate_positions - I think that this can be deleted I will leave it for a bit and see how it goes
+      # return true if potential_moves.include?(move_to.position)
     end
   end
 
