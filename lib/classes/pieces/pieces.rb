@@ -52,8 +52,8 @@ class Pieces
     when 'King' then calculate_king
     when 'Pawn' then calculate_pawn
     else
-      # calculate_positions - I think that this can be deleted I will leave it for a bit and see how it goes
-      # return true if potential_moves.include?(move_to.position)
+      calculate_positions
+      return true if potential_moves.include?(move_to.position)
     end
   end
 
