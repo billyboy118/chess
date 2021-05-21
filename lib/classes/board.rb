@@ -10,6 +10,7 @@ class Board
   include PlayerInput
   include ValidatePieceSelection
   include NavigateGame
+  include Check
 
   def initialize(player1, player2 = nil)
     @board = []
