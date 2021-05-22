@@ -26,6 +26,8 @@ module Check
 
   # Identifies if the players king is in check
   def king_in_check(king)
+    # i might have to put something in here at some point to switch the colour round I am not to sure though
+
     board.each do |square|
       current_piece = square.current_piece
       next if current_piece == ' '
@@ -39,7 +41,7 @@ module Check
     case square.current_piece.piece_name
     when 'Queen', 'Rook', 'Bishop' then square.current_piece.loop_piece_check(king, square, board)
     when 'King' then square.current_piece.calculate_king_check(square, king)
-    when 'Pawn' # then calculate_pawn(check_piece, king)
+    when 'Pawn' then calculate_pawn_check(square, king)
     else
       # calculate_positions
       # return true if potential_moves.include?(move_to.position)
@@ -80,9 +82,12 @@ module Check
     end
   end
 
-  
-
-  # def identify_check
-  #  piece_name == 'King'
-  # end
+  def calculate_pawn_check(square, king)
+    piece = square.current_piece
+    piece.allocate_moves
+    piece.moves.delete_at(3)
+    piece.moves.delete_at(0)
+    piece.calculate_positions_check(square)
+    return true if piece.potential_moves.include?(king.position)
+  end
 end
