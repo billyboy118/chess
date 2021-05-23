@@ -11,6 +11,7 @@ class Board
   include ValidatePieceSelection
   include NavigateGame
   include Check
+  include CheckMate
 
   def initialize(player1, player2 = nil)
     @board = []
@@ -32,20 +33,23 @@ class Board
     setup_board
   end
 
-  # rubocop: disable Metrics/AbcSize, Metrics/MethodLength
   def game_cycle
     GameMessages.whos_who(player1, player2)
     while player1.winner.nil? && player2.winner.nil?
-      @current_player = if counter.odd?
-                          player1
-                        else
-                          player2
-                        end
+      @current_player = select_player 
       player_input
       current_player.selected_piece.potential_moves = []
       @counter += 1
       @game_phase = 1
+      start_check_mate
     end
   end
-  # rubocop: enable Metrics/AbcSize, Metrics/MethodLength
+
+  def select_player
+    if counter.odd?
+      player1
+    else
+      player2
+    end
+  end
 end
