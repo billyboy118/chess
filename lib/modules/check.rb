@@ -21,29 +21,32 @@ module Check
   end
 
   # This method identifies at the beginning of the players turn if they are in check
-  def start_turn_identify_check
-    king = find_king
-    puts 'You are in Check' if king_in_check(king) == true
+  def start_turn_identify_check(colour = nil)
+    colour = colour.nil? ? find_colour : colour
+    king = find_king(colour)
+    king_in_check(king, colour)
+  end
+
+  def find_colour
+    instance_of?(Board) ? current_player.colour : colour
   end
 
   # Identifies the playes king whos turn it is
-  def find_king
+  def find_king(colour = find_colour)
     board.each do |square|
-      player_colour = instance_of?(Board) ? current_player.colour : colour
       current_piece = square.current_piece
       next if current_piece == ' '
-      next if current_piece.colour != player_colour
+      next if current_piece.colour != colour
       return square if current_piece.piece_name == 'King'
     end
   end
 
   # Identifies if the players king is in check
-  def king_in_check(king)
-    player_colour = instance_of?(Board) ? current_player.colour : colour
+  def king_in_check(king, colour = find_colour)
     board.each do |square|
       current_piece = square.current_piece
       next if current_piece == ' '
-      next if current_piece.colour == player_colour
+      next if current_piece.colour == colour
       return true if cycle_check_pieces(king, square) == true
     end
   end
