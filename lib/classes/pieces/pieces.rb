@@ -31,9 +31,9 @@ class Pieces
   end
 
   def legal_move(game_counter)
+    return false if start_check == true
     return unless can_move_be_made == true
 
-    start_check
     @@passant_eligable = 'No' if @@counter == game_counter
     @@counter = game_counter
     true
