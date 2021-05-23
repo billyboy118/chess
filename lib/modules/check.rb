@@ -28,8 +28,7 @@ module Check
 
   # Identifies the playes king whos turn it is
   def find_king
-    new_board = board # instance_of?(Board) ? board : self.board
-    new_board.each do |square|
+    board.each do |square|
       player_colour = instance_of?(Board) ? current_player.colour : colour
       current_piece = square.current_piece
       next if current_piece == ' '
