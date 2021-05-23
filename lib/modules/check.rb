@@ -4,8 +4,17 @@
 module Check
 
   def start_check
-    # start_turn_identify_check
-    # identify_move_into_check
+    return king_in_check(move_to) if piece_name == 'King'
+
+    king = find_king
+    simulate_move
+    king_in_check(king)
+    # need to add something here which will take into account the playes move when blocking the check move
+    # I will need to simulate the move the player will make - this could involve having to temporarly add a marker to the board
+  end
+
+  def simulate_move
+
   end
 
   # This method identifies at the beginning of the players turn if they are in check
@@ -16,35 +25,36 @@ module Check
 
   # Identifies the playes king whos turn it is
   def find_king
-    board.each do |square|
+    new_board = board # instance_of?(Board) ? board : self.board
+    new_board.each do |square|
+      player_colour = instance_of?(Board) ? current_player.colour : colour
       current_piece = square.current_piece
       next if current_piece == ' '
-      next if current_piece.colour != current_player.colour
+      next if current_piece.colour != player_colour
       return square if current_piece.piece_name == 'King'
     end
   end
 
   # Identifies if the players king is in check
   def king_in_check(king)
-    # i might have to put something in here at some point to switch the colour round I am not to sure though
-
+    player_colour = instance_of?(Board) ? current_player.colour : colour
     board.each do |square|
       current_piece = square.current_piece
       next if current_piece == ' '
-      next if current_piece.colour == current_player.colour
-
+      next if current_piece.colour == player_colour
       return true if cycle_check_pieces(king, square) == true
     end
   end
 
   def cycle_check_pieces(king, square)
-    case square.current_piece.piece_name
-    when 'Queen', 'Rook', 'Bishop' then square.current_piece.loop_piece_check(king, square, board)
-    when 'King' then square.current_piece.calculate_king_check(square, king)
+    piece = square.current_piece
+    case piece.piece_name
+    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, board)
+    when 'King' then piece.calculate_king_check(square, king)
     when 'Pawn' then calculate_pawn_check(square, king)
     else
-      # calculate_positions
-      # return true if potential_moves.include?(move_to.position)
+      piece.calculate_positions_check(square)
+      return true if piece.potential_moves.include?(king.position)
     end
   end
 
@@ -74,6 +84,7 @@ module Check
     return true if potential_moves.include?(king.position)
   end
 
+  # calculates positions for a number of the different pieces
   def calculate_positions_check(square)
     move_from = square.position
     moves.each do |move|
@@ -82,6 +93,7 @@ module Check
     end
   end
 
+  # determines if the pawn is able to put the king in check
   def calculate_pawn_check(square, king)
     piece = square.current_piece
     piece.allocate_moves
