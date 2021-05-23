@@ -18,7 +18,7 @@ module PlayerInput
   end
 
   def position
-    start_turn_identify_check
+    puts 'You are in check' if start_turn_identify_check == true
     puts "\nHit Enter for more options\n".red
     case game_phase
     when 1..2 then print 'Which piece would you like to select?: '
