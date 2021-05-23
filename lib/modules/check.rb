@@ -2,19 +2,22 @@
 
 # this module is for the check and chackmate methods
 module Check
-
   def start_check
     return king_in_check(move_to) if piece_name == 'King'
 
     king = find_king
-    simulate_move
-    king_in_check(king)
-    # need to add something here which will take into account the playes move when blocking the check move
-    # I will need to simulate the move the player will make - this could involve having to temporarly add a marker to the board
+    simulate_check_move(self, ' ')
+    can_check_move_be_made = true if king_in_check(king) == true
+    simulate_check_move(' ', self)
+    can_check_move_be_made
   end
 
-  def simulate_move
-
+  # simulates the move being made by temporaruly moving the pieces around
+  def simulate_check_move(to, from)
+    move_to_index = Generic.find_square_index(move_to.position, board)
+    move_from_index = Generic.find_square_index(move_from, board)
+    board[move_to_index].current_piece = to
+    board[move_from_index].current_piece = from
   end
 
   # This method identifies at the beginning of the players turn if they are in check
