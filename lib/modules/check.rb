@@ -51,42 +51,48 @@ module Check
     end
   end
 
-  def cycle_check_pieces(king, square)
+  def cycle_check_pieces(king, square, checkmate = nil)
     piece = square.current_piece
     case piece.piece_name
-    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, board)
-    when 'King' then piece.calculate_king_check(square, king)
-    when 'Pawn' then calculate_pawn_check(square, king)
+    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, board, checkmate)
+    when 'King' then piece.calculate_king_check(square, king, checkmate)
+    when 'Pawn' then calculate_pawn_check(square, king, checkmate)
     else
       piece.calculate_positions_check(square)
+      return piece.potential_moves if checkmate == true
       return true if piece.potential_moves.include?(king.position)
     end
   end
 
-  # rubocop: disable Metrics/AbcSize
-  def loop_piece_check(king, square, board)
+  # rubocop: disable Metrics/AbcSize 
+  # rubocop: disable Metrics/CyclomaticComplexity
+  def loop_piece_check(king, square, board, checkmate = nil)
     moves.each do |move|
       new_move = square.position
       8.times do
         new_move = [new_move[0] + move[0], new_move[1] + move[1]]
         break if new_move.any? { |num| num.negative? || num > 7 }
         break if piece_in_path_check(new_move, king, board) == false
-        return true if new_move == king.position
+        return new_move if checkmate == true
+        return true if new_move == king.position  # change
       end
     end
   end
   # rubocop: enable Metrics/AbcSize
+  # rubocop: enable Metrics/CyclomaticComplexity
 
   # checks that no pieces is in the path when checking for check
   def piece_in_path_check(new_move, king, board)
+    board = board == [] ? king.current_piece.board : board
     incrimented_square = Generic.find_square(new_move, board)
     return false if new_move != king.position && incrimented_square.current_piece != ' '
   end
 
   # calculates king moves and returns true if king put the king in check
-  def calculate_king_check(square, king)
+  def calculate_king_check(square, king, checkmate = nil)
     calculate_positions_check(square)
-    return true if potential_moves.include?(king.position)
+    return potential_moves if checkmate == true
+    return true if potential_moves.include?(king.position) #change
   end
 
   # calculates positions for a number of the different pieces
@@ -99,12 +105,13 @@ module Check
   end
 
   # determines if the pawn is able to put the king in check
-  def calculate_pawn_check(square, king)
+  def calculate_pawn_check(square, king, checkmate = nil)
     piece = square.current_piece
     piece.allocate_moves
     piece.moves.delete_at(3)
-    piece.moves.delete_at(0)
+    piece.moves.delete_at(0) # if turn == 1 and I   need to put something in here to only remove this when checking for check, the pawn could move to spaces forward to bring the king out of check
     piece.calculate_positions_check(square)
-    return true if piece.potential_moves.include?(king.position)
+    return piece.potential_moves if checkmate == true
+    return true if piece.potential_moves.include?(king.position) #change
   end
 end
