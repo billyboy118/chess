@@ -10,6 +10,7 @@ class Pieces
   include Promotion
   include ShowBoard
   include Check
+  include CheckMate
 
   @@passant_eligable = 'No'
   @@counter = 0

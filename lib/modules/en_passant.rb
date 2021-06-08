@@ -46,8 +46,8 @@ module EnPassant
   # first stage
   def possible_moves
     num = move_to.position[1] == 3 ? 1 : -1
-    left_piece = calculate_left(num)
-    right_piece = calculate_right(num)
+    left_piece = calculate_left(board, num)
+    right_piece = calculate_right(board, num)
     en_passant_selection([left_piece, right_piece])
   end
 

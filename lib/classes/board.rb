@@ -36,12 +36,12 @@ class Board
   def game_cycle
     GameMessages.whos_who(player1, player2)
     while player1.winner.nil? && player2.winner.nil?
-      @current_player = select_player 
+      @current_player = select_player
       player_input
       current_player.selected_piece.potential_moves = []
       @counter += 1
       @game_phase = 1
-      start_check_mate
+      end_game if start_check_mate == 'end game'
     end
   end
 
@@ -52,4 +52,8 @@ class Board
       player2
     end
   end
+
+  def end_game
+
+  end 
 end

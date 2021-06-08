@@ -2,7 +2,7 @@
 
 # class which create pawn pieces to put on the board
 class Pawn < Pieces
-  attr_accessor :en_passant_pieces, :en_passant_move
+  attr_accessor :en_passant_pieces, :en_passant_move, :moves
 
   @@en_passant_pieces = []
   @@en_passant = 0
@@ -33,11 +33,11 @@ class Pawn < Pieces
     en_passant_eligable if potential_moves.include?(move_to.position)
   end
 
-  def can_pawn_take
-    left = calculate_left
-    right = calculate_right
-    front = calculate_front
-    double_front = calculate_double_front
+  def can_pawn_take(new_board = board)
+    left = calculate_left(new_board)
+    right = calculate_right(new_board)
+    front = calculate_front(new_board)
+    double_front = calculate_double_front(new_board)
     moves.delete_at(2) if look_potential_moves(right)
     moves.delete_at(1) if look_potential_moves(left)
     moves.delete_at(0) unless look_potential_moves(front)
@@ -52,30 +52,28 @@ class Pawn < Pieces
     position.nil? || position.current_piece == ' '
   end
 
-  def calculate_left(num = 0)
+  def calculate_left(new_board, num = 0)
     left = [move_from[0] + moves[1][0], move_from[1] + moves[1][1] + num]
-    Generic.find_square(left, board) if correct_range(left)
+    Generic.find_square(left, new_board) if correct_range(left)
   end
 
-  def calculate_right(num = 0)
+  def calculate_right(new_board, num = 0)
     right = [move_from[0] + moves[2][0], move_from[1] + moves[2][1] + num]
-    Generic.find_square(right, board) if correct_range(right)
+    Generic.find_square(right, new_board) if correct_range(right)
   end
 
-  def calculate_front 
+  def calculate_front(new_board)
     front = [move_from[0] + moves[0][0], move_from[1] + moves[0][1]]
 
-    Generic.find_square(front, board) if correct_range(front)
+    Generic.find_square(front, new_board) if correct_range(front)
   end
 
-  # rubocop:disable Metrics/AbcSize
-  def calculate_double_front
+  def calculate_double_front(new_board)
     return if no_of_moves.positive?
 
     double_front = [move_from[0] + moves[3][0], move_from[1] + moves[3][1]]
-    Generic.find_square(double_front, board) if correct_range(double_front)
+    Generic.find_square(double_front, new_board) if correct_range(double_front)
   end
-  # rubocop:enable Metrics/AbcSize
 
   # this move method identifies the piece that will need to be removed as a result of the en_passant move
   def pawn_move
