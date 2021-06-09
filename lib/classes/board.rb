@@ -41,7 +41,7 @@ class Board
       current_player.selected_piece.potential_moves = []
       @counter += 1
       @game_phase = 1
-      end_game if start_check_mate == 'end game'
+      break if end_game == true
     end
   end
 
@@ -54,6 +54,9 @@ class Board
   end
 
   def end_game
+    return unless start_check_mate == 'end game'
 
-  end 
+    show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
+    true
+  end
 end

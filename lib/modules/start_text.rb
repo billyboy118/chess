@@ -18,9 +18,10 @@ HEREDOC
 puts '            Lets play some chess'.light_blue
   end
 
-  def self.lets_play
+  def self.lets_play(counter)
     prompt = TTY::Prompt.new
-    greeting = puts "\nWhat would you like to do?"
+    greeting = counter.positive? ? "\nWhat would you like to do now?" : "\nWhat would you like to do?"
+    greeting = puts greeting
     choices = ['New Game', 'Load Game (not currently available)']
     selection = prompt.select(greeting, choices)
 

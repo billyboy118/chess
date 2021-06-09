@@ -35,8 +35,12 @@ require 'tty-prompt'
 
 def start
   StartText.welcome_message
-  game_mode = StartText.lets_play
-  game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
+  counter = 0
+  loop do
+    game_mode = StartText.lets_play(counter)
+    game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
+    counter += 1
+  end
 end
 
 def initate_single_player
