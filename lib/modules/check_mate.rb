@@ -1,18 +1,17 @@
 # frozen_string_literal: false
-# rubocop: disable Metrics/ModuleLength 
+# rubocop: disable Metrics/ModuleLength
+
 # this module if to determine if the King has been put in check mate
 module CheckMate
+  # starts checkmate from board class
   def start_check_mate
-    colour = check_mate_colour
+    colour = current_player.colour == 'Black' ? 'White' : 'Black'
     return unless start_turn_identify_check(colour) == true
 
     return 'end game' if cycle_opposition_pieces(colour) != true
   end
 
-  def check_mate_colour(my_piece = current_player.colour)
-    my_piece == 'Black' ? 'White' : 'Black'
-  end
-
+  # looks at squares and identifies oposition pieces
   def cycle_opposition_pieces(colour)
     king = find_king(colour)
     king.current_piece.board = board
@@ -24,21 +23,40 @@ module CheckMate
     end
   end
 
-  # rubocop: disable Metrics/AbcSize
+  # cycles and simulates opposition moves
   def cycle_opposition_moves(square, king, board, colour)
-    available_piece_moves = cycle_check_pieces(king, square, board, 1) #i can get rid of this and put all moves in the instace variables
-    available_piece_moves = moves if piece_name == 'Pawn'
-    available_piece_moves.each do |moving_to|
+    cycle_check_pieces(king, square, board, 1)
+    moves.each do |moving_to|
       new_position = new_positions(moving_to, piece_name, current_location)
-      next if new_position.any? { |num| num.negative? || num > 7 }
-      if board[Generic.find_square_index(new_position, board)].current_piece != ' '
-        next if board[Generic.find_square_index(new_position, board)].current_piece.colour == colour
-      end
+      next if skip_squares_if(new_position, board, colour) == true
 
       new_board = Marshal.load(Marshal.dump(board))
       new_board = simulate_checkmate_moves(self, ' ', new_position, new_board)
       king = find_king_checkmate(new_board, colour)
       return true if king_in_checkmate_final(king, new_board, king.current_piece.colour) == true
+    end
+  end
+
+  # look at the squares from cycle_opostition moves and skip if they are not legal
+  def skip_squares_if(new_position, board, colour)
+    return true if new_position.any? { |num| num.negative? || num > 7 }
+
+    position = board[Generic.find_square_index(new_position, board)].current_piece
+    return unless position != ' '
+    return true if position.colour == colour
+  end
+
+  # rubocop: disable Metrics/AbcSize
+  def loop_checkmate(square, new_board)
+    moves.each do |move|
+      new_move = square.position
+      8.times do
+        new_move = [new_move[0] + move[0], new_move[1] + move[1]]
+        break if new_move.any? { |num| num.negative? || num > 7 }
+        break if piece_in_path_checkmate(new_move, new_board) == true
+
+        potential_moves.push(new_move)
+      end
     end
   end
   # rubocop: enable Metrics/AbcSize
@@ -70,22 +88,6 @@ module CheckMate
     new_board[move_from_index].current_piece = from
     new_board
   end
-
-  # rubocop: disable Metrics/AbcSize
-  def loop_checkmate(square, new_board)
-    moves.each do |move|
-      new_move = square.position
-      8.times do
-        new_move = [new_move[0] + move[0], new_move[1] + move[1]]
-        break if new_move.any? { |num| num.negative? || num > 7 }
-        break if piece_in_path_checkmate(new_move, new_board) == true
-
-        potential_moves.push(new_move)
-      end
-    end
-    potential_moves
-  end
-  # rubocop: enable Metrics/AbcSize
 
   def piece_in_path_checkmate(new_move, new_board)
     incrimented_square = Generic.find_square(new_move, new_board)
@@ -160,3 +162,4 @@ module CheckMate
     return 1 if piece.potential_moves.include?(king.position)
   end
 end
+# rubocop: enable Metrics/ModuleLength

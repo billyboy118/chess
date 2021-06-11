@@ -1,8 +1,8 @@
 # frozen_string_literal: false
+
 # this module is for the check and chackmate methods
 module Check
   def start_check
-
     new_board = Marshal.load(Marshal.dump(board))
     return king_in_check(move_to, new_board) if piece_name == 'King'
 
@@ -56,8 +56,8 @@ module Check
   def cycle_check_pieces(king, square, new_board, checkmate = nil)
     piece = square.current_piece
     case piece.piece_name
-    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, new_board, checkmate)
-    when 'King' then piece.calculate_king_check(square, king, checkmate)
+    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, new_board)
+    when 'King' then piece.calculate_king_check(square, king)
     when 'Pawn' then calculate_pawn_check(square, king, new_board, checkmate)
     else
       piece.calculate_positions_check(square)
@@ -92,9 +92,8 @@ module Check
   end
 
   # calculates king moves and returns true if king put the king in check
-  def calculate_king_check(square, king, checkmate = nil)
+  def calculate_king_check(square, king)
     calculate_positions_check(square)
-    return moves if checkmate == 1
     return true if potential_moves.include?(king.position)
   end
 
