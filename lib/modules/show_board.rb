@@ -2,6 +2,7 @@
 
 # module to visually display the board
 module ShowBoard
+  LOCATIONS = { 63 => (56..63), 55 => (48..55), 47 => (40..47), 39 => (32..39), 31 => (24..31), 23 => (16..23), 15 => (8..15), 7 => (0..7)}.freeze
   def setup_board
     assign_white
     assign_black
@@ -18,9 +19,7 @@ module ShowBoard
     board[5].current_piece = Bishop.new(player1.name, player1.colour)
     board[6].current_piece = Knight.new(player1.name, player1.colour)
     board[7].current_piece = Rook.new(player1.name, player1.colour)
-    (8..15).each do |i|
-      board[i].current_piece = Pawn.new(player1.name, player1.colour)
-    end
+    (8..15).each { |i| board[i].current_piece = Pawn.new(player1.name, player1.colour) }
   end
 
   def assign_black
@@ -32,9 +31,7 @@ module ShowBoard
     board[61].current_piece = Bishop.new(player2.name, player2.colour)
     board[62].current_piece = Knight.new(player2.name, player2.colour)
     board[63].current_piece = Rook.new(player2.name, player2.colour)
-    (48..55).each do |i|
-      board[i].current_piece = Pawn.new(player2.name, player2.colour)
-    end
+    (48..55).each {|i| board[i].current_piece = Pawn.new(player2.name, player2.colour)}
   end
 
   def assign_locations_to_pieces
@@ -54,90 +51,38 @@ module ShowBoard
   def show_board(name = nil)
     assign_locations_to_pieces
     StartText.welcome_message
+    board_line_loop
     puts ''
-    print '            8 '
-    (56..63).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            7 '
-    (48..55).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            6 '
-    (40..47).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            5 '
-    (32..39).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            4 '
-    (24..31).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            3 '
-    (16..23).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            2 '
-    (8..15).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '            1 '
-    (0..7).each do |i|
-      if board[i].current_piece == ' '
-        print "|#{board[i].current_piece}"
-      else
-        print "|#{board[i].current_piece.piece}"
-      end
-    end
-    print '|'
-    puts ''
-    print '               A B C D E F G H'
+    puts '               A  B  C  D  E  F  G  H'
     puts ''
     puts ''
     puts name.to_s
+  end
+
+  def board_line_loop
+    line_counter = 8
+    index_counter = 63
+    8.times do
+      puts ''
+      print "            #{line_counter} "
+      index_counter = add_pieces_to_board(index_counter, line_counter)
+
+      print ' '
+      line_counter -= 1
+    end
+  end
+
+  def add_pieces_to_board(counter, line_counter)
+    
+    LOCATIONS[counter].each do |i|
+      current_piece = board[i].current_piece
+      if (line_counter.even? && counter.odd?) || (line_counter.odd? && counter.even?)
+        print current_piece == ' ' ? " #{current_piece.on_red} ".on_red : " #{current_piece.piece} ".on_red
+      else #line_counter.even? && counter.even? || line_counter.odd? && counter.odd?
+        print current_piece == ' ' ? " #{current_piece.on_blue} ".on_blue : " #{current_piece.piece} ".on_blue
+      end
+      counter -= 1
+    end
+    counter
   end
 end
