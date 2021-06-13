@@ -56,7 +56,7 @@ module Check
   def cycle_check_pieces(king, square, new_board, checkmate = nil)
     piece = square.current_piece
     case piece.piece_name
-    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, new_board)
+    when 'Queen', 'Rook', 'Bishop' then piece.loop_piece_check(king, square, new_board, checkmate)
     when 'King' then piece.calculate_king_check(square, king)
     when 'Pawn' then calculate_pawn_check(square, king, new_board, checkmate)
     else

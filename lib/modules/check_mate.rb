@@ -4,6 +4,7 @@
 # this module if to determine if the King has been put in check mate
 module CheckMate
   # starts checkmate from board class
+  PIECES = %w[Pawn Knight King].freeze
   def start_check_mate
     colour = current_player.colour == 'Black' ? 'White' : 'Black'
     return unless start_turn_identify_check(colour) == true
@@ -26,7 +27,8 @@ module CheckMate
   # cycles and simulates opposition moves
   def cycle_opposition_moves(square, king, board, colour)
     cycle_check_pieces(king, square, board, 1)
-    moves.each do |moving_to|
+    convert_moves
+    potential_moves.each do |moving_to|
       new_position = new_positions(moving_to, piece_name, current_location)
       next if skip_squares_if(new_position, board, colour) == true
 
@@ -35,6 +37,14 @@ module CheckMate
       king = find_king_checkmate(new_board, colour)
       return true if king_in_checkmate_final(king, new_board, king.current_piece.colour) == true
     end
+  end
+
+  def convert_moves
+    @potential_moves = [] if potential_moves.nil?
+    return unless PIECES.include?(piece_name)
+
+    @potential_moves = []
+    moves.each { |move| @potential_moves.push(move) }
   end
 
   # look at the squares from cycle_opostition moves and skip if they are not legal
@@ -72,8 +82,7 @@ module CheckMate
 
   def new_positions(moving_to, piece_name, current_location)
     current_position = Generic.find_index_with_string(current_location)
-    pieces = %w[Pawn Knight King]
-    if pieces.include?(piece_name)
+    if PIECES.include?(piece_name)
       [moving_to[0] + current_position[0], moving_to[1] + current_position[1]]
     else
       moving_to
@@ -91,7 +100,15 @@ module CheckMate
 
   def piece_in_path_checkmate(new_move, new_board)
     incrimented_square = Generic.find_square(new_move, new_board)
-    return true if incrimented_square.current_piece != ' '
+    # return true if incrimented_square.current_piece != ' '
+
+    if incrimented_square.current_piece == ' '
+      false
+    elsif incrimented_square.current_piece.colour != colour
+      false
+    else
+      true
+    end
   end
 
   def calculate_pawn_checkmate(square, new_board)
