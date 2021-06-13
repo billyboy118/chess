@@ -12,6 +12,7 @@ class Board
   include NavigateGame
   include Check
   include CheckMate
+  include SaveLoad
 
   def initialize(player1, player2 = nil)
     @board = []
