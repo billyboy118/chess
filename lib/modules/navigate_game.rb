@@ -20,7 +20,9 @@ module NavigateGame
   end
 
   def grid_select_intro
-    current_player.selected_grid = input_intro
+    player_input = input_intro
+    current_player.selected_grid = player_input
+    save_game if player_input == 'Save Game'
     @game_phase = 2
     validate_piece
   end
