@@ -22,10 +22,10 @@ puts '            Lets play some chess'.light_blue
     prompt = TTY::Prompt.new
     greeting = counter.positive? ? "\nWhat would you like to do now?" : "\nWhat would you like to do?"
     greeting = puts greeting
-    choices = ['New Game', 'Load Game (not currently available)']
+    choices = ['New Game', 'Load Game']
     selection = prompt.select(greeting, choices)
 
-    selection == 'New Game' ? new_game : load_game
+    selection == 'New Game' ? new_game : SaveLoad.select_loaded_file
   end
 
   def self.new_game
@@ -38,11 +38,11 @@ puts '            Lets play some chess'.light_blue
     prompt.select(greeting, choices)
   end
 
-  def self.load_game
-    Generic.clear
-    welcome_message
-    puts "\n Load game currently unavailable"
-    sleep 3
-    lets_play
-  end
+  # def self.load_game
+  #  Generic.clear
+  #  welcome_message
+  #  puts "\n Load game currently unavailable"
+  #  sleep 3
+  #  lets_play
+  # end
 end

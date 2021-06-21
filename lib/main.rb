@@ -40,7 +40,10 @@ def start
   counter = 0
   loop do
     game_mode = StartText.lets_play(counter)
-    game_mode == 'Two Player' ? TwoPlayer.initate_two_player : initate_single_player
+    case game_mode
+    when 'Two Player' then TwoPlayer.initate_two_player
+    when 'Single Player' then initate_single_player
+    end
     counter += 1
   end
 end

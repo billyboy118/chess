@@ -17,6 +17,16 @@ module SaveLoad
     File.open("#{save_name}.yml", 'w') { |file| YAML.dump([] << self, file) }
   end
 
+  def self.select_loaded_file
+    return puts "\nNo games to load".red if Dir.glob('*.yml').length.zero?
+
+    prompt = TTY::Prompt.new
+    greeting = 'Which game would you like to load?'
+    choices = Dir.glob('*.yml')
+    response = prompt.select(greeting, choices)
+    load_game(response)
+  end
+
   # def to_json
   #  board = @board[1].current_piece
   #  p self
@@ -31,13 +41,13 @@ module SaveLoad
   # })
   # end
 
-  def board_to_json
-    board = []
-    @board.each do |square|
-      board.push(square)
-      board.push(position: square.position)
-      board.push(current_piece: square.current_piece)
-    end
-    board
-  end
+  # def board_to_json
+  #   board = []
+  #   @board.each do |square|
+  #     board.push(square)
+  #     board.push(position: square.position)
+  #     board.push(current_piece: square.current_piece)
+  #   end
+  #   board
+  # end
 end
