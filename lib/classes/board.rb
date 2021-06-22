@@ -2,8 +2,7 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_reader :board, :player1, :player2, :current_player
-  attr_accessor :game_message, :counter, :game_phase
+  attr_accessor :game_message, :counter, :game_phase, :board, :player1, :player2, :current_player
 
   include ShowBoard
   include GameMessages
@@ -22,7 +21,7 @@ class Board
     @current_player = nil
     @game_message = ''
     @game_phase = 1
-    create_board
+    create_board unless player1.nil?
   end
 
   def create_board
