@@ -11,6 +11,8 @@ module SaveLoad
     puts 'What would you like to save your game as?'
     save_name = gets.chomp
     File.open("#{save_name}.yml", 'w') { |file| YAML.dump([] << self, file) }
+
+    puts "\n Game Saved".green
   end
 
   def self.select_loaded_file
@@ -35,6 +37,7 @@ module SaveLoad
     loaded_game.current_player = loaded_file[0].current_player
     loaded_game.game_message = loaded_file[0].game_message
     loaded_game.game_phase = loaded_file[0].game_phase
+
     loaded_game.game_cycle
   end
   # rubocop: enable Metrics/AbcSize

@@ -41,7 +41,7 @@ class Board
   end
 
   def game_cycle
-    GameMessages.whos_who(player1, player2)
+    GameMessages.whos_who(player1, player2) unless counter.positive?
     while player1.winner.nil? && player2.winner.nil?
       @current_player = select_player
       player_input
