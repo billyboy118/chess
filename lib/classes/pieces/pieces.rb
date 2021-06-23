@@ -3,7 +3,7 @@
 # super class for all chess pieces to inherit from
 class Pieces
   attr_reader :piece_name, :piece, :player_name, :colour, :moves, :special_moves
-  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter, :passant_eligable
+  attr_accessor :current_location, :move_from, :move_to, :board, :no_of_moves, :potential_moves, :en_passant_pieces, :counter, :passant_eligable, :game
 
   include ChessPieces
   include EnPassant
@@ -12,10 +12,7 @@ class Pieces
   include Check
   include CheckMate
 
-  @@passant_eligable = 'No'
-  @@counter = 0
-
-  def initialize(name, colour)
+  def initialize(name, colour, game)
     @player_name = name
     @colour = colour
     @piece = get_piece(piece_name, @colour)
@@ -25,18 +22,19 @@ class Pieces
     @move_to = []
     @board = []
     @no_of_moves = 0
+    @game = game
   end
 
   def passant_eligable_selection(choice)
-    @@passant_eligable = choice
+    game.passant_eligable = choice
   end
 
   def legal_move(game_counter)
     return false if start_check == true
     return unless can_move_be_made == true
 
-    @@passant_eligable = 'No' if @@counter == game_counter
-    @@counter = game_counter
+    game.passant_eligable = 'No' if game.passant_counter == game_counter
+    game.passant_counter = game_counter
     true
   end
 

@@ -2,7 +2,7 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_accessor :game_message, :counter, :game_phase, :board, :player1, :player2, :current_player
+  attr_accessor :game_message, :counter, :game_phase, :board, :player1, :player2, :current_player, :passant_eligable, :passant_counter, :en_passant_pieces
 
   include ShowBoard
   include GameMessages
@@ -13,6 +13,7 @@ class Board
   include CheckMate
   include SaveLoad
 
+  # rubocop: disable Metrics/MethodLength
   def initialize(player1, player2 = nil)
     @board = []
     @counter = 1
@@ -21,8 +22,14 @@ class Board
     @current_player = nil
     @game_message = ''
     @game_phase = 1
+
+    @passant_eligable = 'No' # put self in every piece of the chess board
+    @passant_counter = 0
+    @en_passant_pieces = []
+
     create_board unless player1.nil?
   end
+  # rubocop: enable Metrics/MethodLength
 
   def create_board
     (0..7).each do |vertical|

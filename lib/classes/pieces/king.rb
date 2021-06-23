@@ -3,8 +3,8 @@
 # class which create king pieces to put on the board
 class King < Pieces
   CASTLING_MOVES = [2, 58, 6, 62].freeze
-  def initialize(name, colour)
-    super(name, colour)
+  def initialize(name, colour, game)
+    super(name, colour, game)
     @piece_name = 'King'
     @piece = get_piece(piece_name, @colour)
     @moves = [[-1, 1], [0, 1], [1, 1], [-1, 0], [1, 0], [-1, -1], [0, -1], [1, -1]]

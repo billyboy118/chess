@@ -31,13 +31,13 @@ module Promotion
   def create_piece(new_piece)
     case new_piece
     when 'Queen'
-      Queen.new(player_name, colour)
+      Queen.new(player_name, colour, self)
     when 'Knight'
-      Knight.new(player_name, colour)
+      Knight.new(player_name, colour, self)
     when 'Bishop'
-      Bishop.new(player_name, colour)
+      Bishop.new(player_name, colour, self)
     when 'Rook'
-      Rook.new(player_name, colour)
+      Rook.new(player_name, colour, self)
     end
   end
 end

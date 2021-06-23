@@ -7,10 +7,11 @@ module EnPassant
 
   # second stage
   def en_passant_take
-    passant_eligable = self.class.class_variable_get(:@@passant_eligable)
-    return if passant_eligable == 'No'
 
-    pieces = self.class.class_variable_get(:@@en_passant_pieces)
+    puts game.passant_eligable
+    return if game.passant_eligable == 'No'
+
+    pieces = game.en_passant_pieces
     piece = Marshal.load(Marshal.dump(pieces[0]))
     en_passant_take_move(piece)
   end
@@ -38,7 +39,7 @@ module EnPassant
     if move_to.position[1] == 3 || move_to.position[1] == 4
       allocate_moves
       possible_moves
-      self.class.class_variable_get(:@@en_passant_pieces).unshift(self)
+      game.en_passant_pieces.unshift(self)
     end
     true # true is needed otherwise this will be seen as an illegal move
   end
@@ -57,7 +58,7 @@ module EnPassant
       next if piece.nil?
 
       if piece.current_piece != ' ' && piece.current_piece.piece_name == 'Pawn'
-        self.class.class_variable_get(:@@en_passant_pieces) << piece.current_piece
+        game.en_passant_pieces << piece.current_piece
         passant_eligable_selection('Yes')
       end
     end

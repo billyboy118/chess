@@ -4,14 +4,10 @@
 class Pawn < Pieces
   attr_accessor :en_passant_pieces, :en_passant_move, :moves
 
-  @@en_passant_pieces = []
-  @@en_passant = 0
-
   include PlayerInput
-  
 
-  def initialize(name, colour)
-    super(name, colour)
+  def initialize(name, colour, game)
+    super(name, colour, game)
     @piece_name = 'Pawn'
     @piece = get_piece(piece_name, @colour)
     @moves = []
