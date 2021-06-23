@@ -23,7 +23,7 @@ class Board
     @game_message = ''
     @game_phase = 1
 
-    @passant_eligable = 'No' # put self in every piece of the chess board
+    @passant_eligable = 'No'
     @passant_counter = 0
     @en_passant_pieces = []
 
@@ -40,6 +40,7 @@ class Board
     setup_board
   end
 
+  # rubocop: disable Metrics/AbcSize
   def game_cycle
     GameMessages.whos_who(player1, player2) unless counter.positive?
     while player1.winner.nil? && player2.winner.nil?
@@ -51,6 +52,7 @@ class Board
       break if end_game == true
     end
   end
+  # rubocop: enable Metrics/AbcSize
 
   def select_player
     if counter.odd?

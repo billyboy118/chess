@@ -24,15 +24,6 @@ module EnPassant
     @en_passant_move = current_position
     potential_moves << current_position
   end
-  # I dont think I will need this method but only time will tell
-  # def push_moves
-  #   #position = Marshal.load(Marshal.dump(move_to.position)) #move_to.position
-  #   moves.each do |move|
-  #     test_move = [position[0] + move[0], position[1] + move[1]]
-  #     puts "this is test move #{test_move}"
-  #     potential_moves << test_move if position == test_move
-  #   end
-  # end
 
   # first stage
   def en_passant_eligable

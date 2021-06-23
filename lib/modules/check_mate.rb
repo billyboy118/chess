@@ -100,8 +100,7 @@ module CheckMate
 
   def piece_in_path_checkmate(new_move, new_board)
     incrimented_square = Generic.find_square(new_move, new_board)
-    # return true if incrimented_square.current_piece != ' '
-
+ 
     if incrimented_square.current_piece == ' '
       false
     elsif incrimented_square.current_piece.colour != colour
@@ -146,8 +145,7 @@ module CheckMate
     end
   end
 
-  # rubocop: disable Metrics/MethodLength
-  # rubocop: disable Metrics/AbcSize
+  # rubocop: disable Metrics/MethodLength, Metrics/AbcSize
   def loop_piece_checkmate_final(king, square, new_board)
     moves.each do |move|
       temp_array = []
@@ -162,8 +160,7 @@ module CheckMate
       end
     end
   end
-  # rubocop: enable Metrics/AbcSize
-  # rubocop: enable Metrics/MethodLength
+  # rubocop: enable Metrics/MethodLength, Metrics/AbcSize
 
   def calculate_king_checkmate_final(square, king)
     calculate_positions_check(square)

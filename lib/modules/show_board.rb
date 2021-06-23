@@ -10,6 +10,7 @@ module ShowBoard
     show_board('')
   end
 
+  # rubocop: disable Metrics/AbcSize
   def assign_white
     p self
     board[0].current_piece = Rook.new(player1.name, player1.colour, self)
@@ -34,6 +35,7 @@ module ShowBoard
     board[63].current_piece = Rook.new(player2.name, player2.colour, self)
     (48..55).each {|i| board[i].current_piece = Pawn.new(player2.name, player2.colour, self)}
   end
+  # rubocop: enable Metrics/AbcSize
 
   def assign_locations_to_pieces
     board.each do |square|
@@ -73,17 +75,18 @@ module ShowBoard
     end
   end
 
+  # rubocop: disable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
   def add_pieces_to_board(counter, line_counter)
-    
     LOCATIONS[counter].each do |i|
       current_piece = board[i].current_piece
       if (line_counter.even? && counter.odd?) || (line_counter.odd? && counter.even?)
         print current_piece == ' ' ? " #{current_piece.on_red} ".on_red : " #{current_piece.piece} ".on_red
-      else #line_counter.even? && counter.even? || line_counter.odd? && counter.odd?
+      else
         print current_piece == ' ' ? " #{current_piece.on_blue} ".on_blue : " #{current_piece.piece} ".on_blue
       end
       counter -= 1
     end
     counter
   end
+  # rubocop: enable Metrics/CyclomaticComplexity, Metrics/AbcSize, Metrics/PerceivedComplexity
 end
