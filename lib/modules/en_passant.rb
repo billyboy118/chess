@@ -7,8 +7,6 @@ module EnPassant
 
   # second stage
   def en_passant_take
-
-    puts game.passant_eligable
     return if game.passant_eligable == 'No'
 
     pieces = game.en_passant_pieces

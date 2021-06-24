@@ -2,7 +2,7 @@
 
 # this class creates the board with the help of the Squares class
 class Board
-  attr_accessor :game_message, :counter, :game_phase, :board, :player1, :player2, :current_player, :passant_eligable, :passant_counter, :en_passant_pieces
+  attr_accessor :game_message, :counter, :game_phase, :board, :player1, :player2, :current_player, :passant_eligable, :passant_counter, :en_passant_pieces, :concede
 
   include ShowBoard
   include GameMessages
@@ -22,6 +22,7 @@ class Board
     @current_player = nil
     @game_message = ''
     @game_phase = 1
+    @concede = 'No'
 
     @passant_eligable = 'No'
     @passant_counter = 0
@@ -46,6 +47,8 @@ class Board
     while player1.winner.nil? && player2.winner.nil?
       @current_player = select_player
       player_input
+      break if concede_game == true
+
       current_player.selected_piece.potential_moves = []
       @counter += 1
       @game_phase = 1
@@ -66,6 +69,13 @@ class Board
     return unless start_check_mate == 'end game'
 
     show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
+    true
+  end
+
+  def concede_game
+    return unless concede == 'Yes'
+
+    show_board("#{current_player.name} you have conceded, your opponent wins!")
     true
   end
 end

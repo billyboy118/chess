@@ -33,7 +33,7 @@ module PlayerInput
   def additional_options
     prompt = TTY::Prompt.new
     greeting = puts "\nWhat would you like to do?"
-    choices = ['Resume', 'Restart Turn', 'Concede (not currently available)', 'View Instructions', 'Save Game', 'Exit Game']
+    choices = ['Resume', 'Restart Turn', 'Concede', 'View Instructions', 'Save Game', 'Exit Game']
     response = prompt.select(greeting, choices)
     prompt_response(response)
   end
@@ -47,6 +47,7 @@ module PlayerInput
       position
     when 'Save Game' then save_game
     when 'Exit Game' then Exit
+    when 'Concede' then 'Yes'
     end
   end
 

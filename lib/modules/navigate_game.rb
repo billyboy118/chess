@@ -6,8 +6,8 @@ module NavigateGame
   # this method game_phase == 1
   def player_input
     while game_phase < 5
-      grid_select_loop
-      move_piece_loop
+      return if grid_select_loop == 'Yes'
+      return if move_to == 'Yes'
     end
   end
 
@@ -15,33 +15,37 @@ module NavigateGame
     while game_phase < 3
       grid_select_intro if game_phase == 1
       grid_select if game_phase == 2
-
+      return 'Yes' if @concede == 'Yes'
     end
   end
 
   def grid_select_intro
-    player_input = input_intro
-    current_player.selected_grid = player_input
-    save_game if player_input == 'Save Game'
+    current_player.selected_grid = input_intro
+    @concede = current_player.selected_grid
+    return if @concede == 'Yes'
+
     @game_phase = 2
     validate_piece
   end
 
   def grid_select
-    current_player.selected_grid = select_piece_retry until validate_piece == true
+    loop do
+      break if validate_piece == true
+
+      current_player.selected_grid = select_piece_retry
+      @concede = 'Yes' if current_player.selected_move == 'Yes'
+      return 'Yes' if @concede == 'Yes'
+    end
     @game_phase = 3 if game_phase != 1
   end
 
-  # this method is where the player will move the piece to and is invoked by the player_input method 
-  def move_piece_loop
-    while game_phase > 2 && game_phase < 5
-      move_to if game_phase == 3
-    end
-  end
-
   def move_to
-    current_player.selected_move = select_piece_retry 
-    current_player.selected_move = select_piece_retry until validate_move == true
+    loop do
+      current_player.selected_move = select_piece_retry
+      @concede = 'Yes' if current_player.selected_move == 'Yes'
+      return 'Yes' if concede == 'Yes'
+      break if validate_move == true
+    end
     @game_phase = 5 if game_phase != 1
   end
 end

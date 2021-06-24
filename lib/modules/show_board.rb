@@ -12,7 +12,6 @@ module ShowBoard
 
   # rubocop: disable Metrics/AbcSize
   def assign_white
-    p self
     board[0].current_piece = Rook.new(player1.name, player1.colour, self)
     board[1].current_piece = Knight.new(player1.name, player1.colour, self)
     board[2].current_piece = Bishop.new(player1.name, player1.colour, self)
@@ -33,7 +32,7 @@ module ShowBoard
     board[61].current_piece = Bishop.new(player2.name, player2.colour, self)
     board[62].current_piece = Knight.new(player2.name, player2.colour, self)
     board[63].current_piece = Rook.new(player2.name, player2.colour, self)
-    (48..55).each {|i| board[i].current_piece = Pawn.new(player2.name, player2.colour, self)}
+    (48..55).each { |i| board[i].current_piece = Pawn.new(player2.name, player2.colour, self) }
   end
   # rubocop: enable Metrics/AbcSize
 
