@@ -54,5 +54,3 @@ def initate_single_player
 end
 
 start
-# bishop = Bishop.new('Bill', 'Black')
-# puts bishop.piece
