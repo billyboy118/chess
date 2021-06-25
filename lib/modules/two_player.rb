@@ -11,6 +11,7 @@ module TwoPlayer
   end
 
   def self.player_names
+    names = []
     2.times do |i|
       StartText.welcome_message
       puts "\nPlayer #{i + 1} what is your name?"
@@ -18,6 +19,7 @@ module TwoPlayer
     end
     StartText.welcome_message
     puts "\nHello #{names[0]} & #{names[1]} lets play some chess!"
-    #names
+    sleep 2
+    names
   end
 end
