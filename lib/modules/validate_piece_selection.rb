@@ -26,19 +26,22 @@ module ValidatePieceSelection
 
     return if friendly_piece == true
 
+    current_piece = current_player.selected_grid.current_piece
     assign_piece_variables
     if current_player.selected_piece.legal_move(counter) == true
       make_move
     else
-      @game_message = 'This is an illegal move'
+      @game_message = "This is an illegal move! \n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location} "
     end
   end
 
   def friendly_piece
-    return if current_player.selected_move.current_piece == ' ' || current_player.selected_grid.current_piece == ' '
-    return unless current_player.selected_move.current_piece.colour == @current_player.colour
+    current_piece = current_player.selected_move.current_piece
+    return if current_piece == ' ' || current_player.selected_grid.current_piece == ' '
+    return unless current_piece.colour == @current_player.colour
 
-    @game_message = 'That is your own piece, please move to another position or restart your turn'
+    current_piece = current_player.selected_grid.current_piece
+    @game_message = "That is your own piece, please move to another position or restart your turn!\n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location}"
     @game_phase = 3
     true
   end
