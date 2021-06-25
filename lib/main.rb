@@ -4,7 +4,7 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), 'modules')
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'classes')
 $LOAD_PATH << File.join(File.dirname(__FILE__), './classes/pieces')
 require 'yaml'
-
+require 'single_player'
 require 'show_board'
 require 'generic'
 require 'start_text'
@@ -42,7 +42,7 @@ def start
     game_mode = StartText.lets_play(counter)
     case game_mode
     when 'Two Player' then TwoPlayer.initate_two_player
-    when 'Single Player' then initate_single_player
+    when 'Single Player' then SinglePlayer.initate_single_player
     end
     counter += 1
   end
