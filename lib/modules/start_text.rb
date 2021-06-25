@@ -34,15 +34,7 @@ puts '            Lets play some chess'.light_blue
 
     prompt = TTY::Prompt.new
     greeting = puts "\nWhat game mode would you like to play?"
-    choices = ['Two Player', 'Single Player (not currently available)']
+    choices = ['Two Player', 'Single Player']
     prompt.select(greeting, choices)
   end
-
-  # def self.load_game
-  #  Generic.clear
-  #  welcome_message
-  #  puts "\n Load game currently unavailable"
-  #  sleep 3
-  #  lets_play
-  # end
 end

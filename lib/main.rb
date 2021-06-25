@@ -48,9 +48,9 @@ def start
   end
 end
 
-def initate_single_player
-  StartText.welcome_message
-  puts "\n Single player currently unavailable"
-end
+#def initate_single_player
+#  StartText.welcome_message
+#  puts "\n Single player currently unavailable"
+#end
 
 start
