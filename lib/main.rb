@@ -4,7 +4,7 @@ $LOAD_PATH << File.join(File.dirname(__FILE__), 'modules')
 $LOAD_PATH << File.join(File.dirname(__FILE__), 'classes')
 $LOAD_PATH << File.join(File.dirname(__FILE__), './classes/pieces')
 require 'yaml'
-# require 'json'
+
 require 'show_board'
 require 'generic'
 require 'start_text'
