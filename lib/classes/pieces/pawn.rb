@@ -24,7 +24,10 @@ class Pawn < Pieces
     allocate_moves
     two_moves_forward
     can_pawn_take
-    en_passant_takefind_square_index
+    en_passant_take
+    calculate_positions
+    en_passant_eligable if potential_moves.include?(move_to.position)
+  end
 
   def two_moves_forward
     index_shift = colour == 'White' ? 8 : -8
@@ -107,4 +110,3 @@ class Pawn < Pieces
     end
   end
 end
-find_square_index
