@@ -22,11 +22,14 @@ class Pawn < Pieces
 
   def calculate_pawn
     allocate_moves
-    moves.pop if no_of_moves.positive?
+    two_moves_forward
     can_pawn_take
-    en_passant_take
-    calculate_positions
-    en_passant_eligable if potential_moves.include?(move_to.position)
+    en_passant_takefind_square_index
+
+  def two_moves_forward
+    index_shift = colour == 'White' ? 8 : -8
+    current_index = Generic.find_square_index(move_from, board)
+    moves.pop if no_of_moves.positive? || board[current_index + index_shift].current_piece != ' '
   end
 
   def can_pawn_take(new_board = board)
@@ -64,12 +67,16 @@ class Pawn < Pieces
     Generic.find_square(front, new_board) if correct_range(front)
   end
 
+  # rubocop: disable Metrics/AbcSize
   def calculate_double_front(new_board)
-    return if no_of_moves.positive?
+    index_shift = colour == 'White' ? 8 : -8
+    current_index = Generic.find_square_index(move_from, board)
+    return if no_of_moves.positive? || board[current_index + index_shift].current_piece != ' '
 
     double_front = [move_from[0] + moves[3][0], move_from[1] + moves[3][1]]
     Generic.find_square(double_front, new_board) if correct_range(double_front)
   end
+  # rubocop: enable Metrics/AbcSize
 
   # this move method identifies the piece that will need to be removed as a result of the en_passant move
   def pawn_move
@@ -100,3 +107,4 @@ class Pawn < Pieces
     end
   end
 end
+find_square_index
