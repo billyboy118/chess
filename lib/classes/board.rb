@@ -47,8 +47,7 @@ class Board
     GameMessages.whos_who(player1, player2) unless counter.positive?
     while player1.winner.nil? && player2.winner.nil?
       @current_player = select_player
-      puts current_player
-      player_input
+      current_player.name == 'Computer' ? select_computer_move : player_input
       break if concede_game == true
 
       current_player.selected_piece.potential_moves = []

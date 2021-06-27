@@ -23,7 +23,6 @@ module ValidatePieceSelection
 
   def validate_move
     return true if game_phase == 1
-
     return if friendly_piece == true
 
     current_piece = current_player.selected_grid.current_piece
