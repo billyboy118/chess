@@ -73,8 +73,8 @@ class Pawn < Pieces
   # rubocop: disable Metrics/AbcSize
   def calculate_double_front(new_board)
     index_shift = colour == 'White' ? 8 : -8
-    current_index = Generic.find_square_index(move_from, board)
-    return if no_of_moves.positive? || board[current_index + index_shift].current_piece != ' '
+    current_index = Generic.find_square_index(move_from, new_board)
+    return if no_of_moves.positive? || new_board[current_index + index_shift].current_piece != ' '
 
     double_front = [move_from[0] + moves[3][0], move_from[1] + moves[3][1]]
     Generic.find_square(double_front, new_board) if correct_range(double_front)
