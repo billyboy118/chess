@@ -13,6 +13,7 @@ class Board
   include CheckMate
   include SaveLoad
   include SinglePlayer
+  include Stalemate
 
   # rubocop: disable Metrics/MethodLength
   def initialize(player1, player2 = nil)
@@ -67,10 +68,14 @@ class Board
   end
 
   def end_game
-    return unless start_check_mate == 'end game'
-
-    show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
-    true
+    return unless 
+    if start_check_mate == 'end game'
+      show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
+      return true
+    elsif stalemate_check == 'stalemate'
+      show_board('This game is at a stalemate therefore it is a draw!')
+      return true
+    end
   end
 
   def concede_game
