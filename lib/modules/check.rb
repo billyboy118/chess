@@ -4,7 +4,7 @@
 module Check
   def start_check
     new_board = Marshal.load(Marshal.dump(board))
-    return king_in_check(move_to, new_board) if piece_name == 'King'
+    return king_in_check(move_to, new_board, 2) if piece_name == 'King'
 
     king = find_king
     simulate_check_move(self, ' ', new_board)
@@ -26,7 +26,7 @@ module Check
     new_board = Marshal.load(Marshal.dump(board))
     colour = colour.nil? ? find_colour : colour
     king = find_king(colour)
-    king_in_check(king, new_board, colour)
+    king_in_check(king, new_board, nil, colour)
   end
 
   def find_colour
@@ -34,8 +34,8 @@ module Check
   end
 
   # Identifies the playes king whos turn it is
-  def find_king(colour = find_colour)
-    board.each do |square|
+  def find_king(colour = find_colour, new_board = board)
+    new_board.each do |square|
       current_piece = square.current_piece
       next if current_piece == ' '
       next if current_piece.colour != colour
@@ -44,10 +44,12 @@ module Check
   end
 
   # Identifies if the players king is in check
-  def king_in_check(king, new_board, colour = find_colour, checkmate = nil)
+  def king_in_check(king, new_board, checkmate = nil, colour = find_colour)
+    simulate_check_move(self, ' ', new_board) if checkmate == 2
+    king = find_king(self.colour, new_board) if checkmate == 2
     new_board.each do |square|
       current_piece = square.current_piece
-      next if current_piece == ' '
+      next if square.current_piece == ' '
       next if current_piece.colour == colour
       return true if cycle_check_pieces(king, square, new_board, checkmate) == true
     end
@@ -69,7 +71,7 @@ module Check
   # rubocop: disable Metrics/AbcSize
   # rubocop: disable Metrics/CyclomaticComplexity
   def loop_piece_check(king, square, new_board, checkmate = nil)
-    return loop_checkmate(square, new_board) unless checkmate.nil?
+    return loop_checkmate(square, new_board) if checkmate == 1
 
     moves.each do |move|
       new_move = square.position
@@ -85,8 +87,8 @@ module Check
   # rubocop: enable Metrics/CyclomaticComplexity
 
   # checks that no pieces is in the path when checking for check
-  def piece_in_path_check(new_move, king, board)
-    incrimented_square = Generic.find_square(new_move, board)
+  def piece_in_path_check(new_move, king, new_board)
+    incrimented_square = Generic.find_square(new_move, new_board)
     return false if new_move == king.position
     return true if incrimented_square.current_piece != ' '
   end

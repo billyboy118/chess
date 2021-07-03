@@ -7,9 +7,10 @@ module CheckMate
   PIECES = %w[Pawn Knight King].freeze
   def start_check_mate
     colour = current_player.colour == 'Black' ? 'White' : 'Black'
-    return unless start_turn_identify_check(colour) == true
+    #return unless start_turn_identify_check(colour) == true
 
     return 'end game' if cycle_opposition_pieces(colour) != true
+    
   end
 
   # looks at squares and identifies oposition pieces
