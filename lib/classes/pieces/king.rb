@@ -38,7 +38,6 @@ class King < Pieces
     sum = colour == 'White' ? 4 : 60
     sum -= move_index
     sum = sum.abs
-    puts sum
     return true if sum == 2
 
     false

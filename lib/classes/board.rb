@@ -68,7 +68,6 @@ class Board
   end
 
   def end_game
-    # return unless 
     if start_check_mate == 'end game'
       show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
       return true

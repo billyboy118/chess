@@ -38,7 +38,6 @@ module SinglePlayer
       next if square.current_piece == ' ' || square.current_piece.colour == 'White'
 
       current_player.selected_grid = Generic.find_square(square.position, board)
-      # p "selected piece #{current_player.selected_grid.position}"
       current_player.selected_piece = current_player.selected_grid.current_piece
       next if find_legal_move != true
 
@@ -52,7 +51,6 @@ module SinglePlayer
       current_player.selected_piece.potential_moves = []
       num = board[rand(63)]
       comp_piece = num.current_piece
-      # p "this is the moves #{num.position}"
       next if comp_piece != ' ' && comp_piece.colour == 'Black'
 
       current_player.selected_move = Generic.find_square(num.position, board)

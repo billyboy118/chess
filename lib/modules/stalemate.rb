@@ -2,15 +2,6 @@
 
 # this module is to establish if the game is a stalemate
 module Stalemate
-  STALEMATE_MOVES = [[0, 0], [0, 1], [0, 2], [0, 3], [0, 4], [0, 5], [0, 6], [0, 7],
-                     [1, 0], [1, 1], [1, 2], [1, 3], [1, 4], [1, 5], [1, 6], [1, 7],
-                     [2, 0], [2, 1], [2, 2], [2, 3], [2, 4], [2, 5], [2, 6], [2, 7],
-                     [3, 0], [3, 1], [3, 2], [3, 3], [3, 4], [3, 5], [3, 6], [3, 7],
-                     [4, 0], [4, 1], [4, 2], [4, 3], [4, 4], [4, 5], [4, 6], [4, 7],
-                     [5, 0], [5, 1], [5, 2], [5, 3], [5, 4], [5, 5], [5, 6], [5, 7],
-                     [6, 0], [6, 1], [6, 2], [6, 3], [6, 4], [6, 5], [6, 6], [6, 7],
-                     [7, 0], [7, 1], [7, 2], [7, 3], [7, 4], [7, 5], [7, 6], [7, 7]].freeze
-
   def stalemate_check
     board.each do |square|
       current_piece = square.current_piece
@@ -20,21 +11,27 @@ module Stalemate
       current_piece.board = board
       current_piece.move_from = Generic.find_index_with_string(current_piece.current_location)
       try_all_moves(square)
+      return true if current_piece.potential_moves.length >= 1
     end
-
-    #can_move_be_made
-    #return 'stalemate'
+    'stalemate'
   end
 
   def try_all_moves(square)
-      current_piece = square.current_piece
-      current_piece.move_to = Square.new([0, 0])
-      current_piece.potential_moves = []
-      current_piece.can_move_be_made
-      p current_piece.piece_name
-      p current_piece.current_location
-      p current_piece.move_from
-      p current_piece.move_to.position
-      p current_piece.potential_moves
+    current_piece = square.current_piece
+    current_piece.move_to = Square.new([0, 0])
+    current_piece.potential_moves = []
+    current_piece.can_move_be_made
+    cycle_king_stalemate(current_piece) if current_piece.piece_name == 'King'
+  end
+
+  def cycle_king_stalemate(current_piece)
+    temp_array = current_piece.potential_moves
+    current_piece.potential_moves = []
+    temp_array.each do |move|
+      current_piece.move_to = Generic.find_square(move, board)
+      next if current_piece.start_check == true
+
+      current_piece.potential_moves << move
+    end
   end
 end
