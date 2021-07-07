@@ -68,7 +68,7 @@ class Board
   end
 
   def end_game
-    return unless 
+    # return unless 
     if start_check_mate == 'end game'
       show_board("Well done #{current_player.name} you have won, the opposition is in checkmate!")
       return true
@@ -76,6 +76,7 @@ class Board
       show_board('This game is at a stalemate therefore it is a draw!')
       return true
     end
+    current_player.selected_piece.potential_moves = []
   end
 
   def concede_game

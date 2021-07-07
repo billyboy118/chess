@@ -52,6 +52,7 @@ class Pieces
     when 'Pawn' then calculate_pawn
     else
       calculate_positions
+      check_stalemate_moves
       return true if potential_moves.include?(move_to.position)
     end
   end
@@ -64,6 +65,8 @@ class Pieces
         new_move = [new_move[0] + move[0], new_move[1] + move[1]]
         break if new_move.any? { |num| num.negative? || num > 7 }
         break if piece_in_path(new_move) == false
+
+        potential_moves << new_move
         return true if new_move == move_to.position
       end
     end
@@ -74,4 +77,17 @@ class Pieces
     incrimented_square = Generic.find_square(new_move, board)
     return false if new_move != move_to.position && incrimented_square.current_piece != ' '
   end
+
+  # rubocop: disable Metrics/AbcSize
+  def check_stalemate_moves
+    temp_array = potential_moves
+    @potential_moves = []
+    temp_array.each do |move|
+      next if move.any? { |num| num.negative? || num > 7 }
+
+      square = Generic.find_square_index(move, board)
+      @potential_moves << move if board[square].current_piece == ' ' || board[square].current_piece.colour != colour 
+    end
+  end
+  # rubocop: enable Metrics/AbcSize
 end

@@ -13,7 +13,10 @@ class King < Pieces
 
   def calculate_king
     calculate_positions
+
     return true if castling == true # return true if castlig == true # hide this so i can move the king anywhere
+
+    check_stalemate_moves
     return true if potential_moves.include?(move_to.position)
 
     # true
