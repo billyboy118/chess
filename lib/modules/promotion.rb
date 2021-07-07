@@ -9,7 +9,16 @@ module Promotion
     return unless move_to.position[1].zero? || move_to.position[1] == 7
 
     show_board
-    select_new_piece
+    select_promotion_player
+  end
+
+  def select_promotion_player
+    if player_name == 'Computer'
+      piece = %w[Queen Kinght Bishop Rook].sample
+      assign_piece(piece)
+    else
+      select_new_piece
+    end
   end
 
   # first stage
