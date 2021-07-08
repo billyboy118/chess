@@ -6,8 +6,16 @@ module PlayerInput
 
   def input_intro
     show_board("#{current_player.name} it is your turn!")
+    insert_computer_move
     Instructions.short_instructions if counter < 3 && game_phase == 1
     position
+  end
+
+  def insert_computer_move
+    return unless player2.name == 'Computer' && !player2.selected_grid.nil?
+
+    player2_piece = player2.selected_piece
+    puts "\nThe computer moved their #{player2_piece.piece_name} from #{Generic.raw_to_string(player2.selected_grid.position)} to #{player2_piece.current_location}".green
   end
 
   def select_piece_retry

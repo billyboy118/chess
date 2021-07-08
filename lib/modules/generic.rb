@@ -26,4 +26,11 @@ module Generic
     array.push(LETTERS[value[0]])
     array.push(NUMBERS[value[3]])
   end
+
+  def self.raw_to_string(value)
+    temp_array = []
+    temp_array << LETTERS.key(value[0])
+    temp_array << NUMBERS.key(value[1])
+    temp_array.join(', ')
+  end
 end
