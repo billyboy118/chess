@@ -3,9 +3,14 @@
 # module to start the game off
 module Instructions
   def self.short_instructions
-    puts "\nTo move a piece, first you need to select it by typing in the coordinates,".red
-    puts 'then you need to type in the coordinates where you wish to move it to. As long'.red
-    puts 'one letter and one number is typed for both the computer will figure out the rest.'.red
+    puts "\nInstruction to move a piece:".green
+    puts '1. Select your piece using the grid coordinates, e.g. a2.'.green
+    puts '2. Select the coordinates where you want to move your piece to.'.green
+    puts '3. If you select a piece and then change your mind, you can restart by hitting enter.'.green
+    puts "\n- The game will only allow you to make legal chess moves.".green
+    puts '- Unique moves such as castling and en-passant are applied.'.green
+    puts '- Hit enter at any point during the game to bring up the options menu.'.green
+
     instruction_prompt
   end
 

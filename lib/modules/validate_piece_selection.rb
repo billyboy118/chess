@@ -16,7 +16,7 @@ module ValidatePieceSelection
   end
 
   def correct_piece(current_piece)
-    @game_message = "You have selected the #{current_piece.piece_name} at #{current_piece.current_location}\n\n"
+    @game_message = "You have selected the #{current_piece.piece_name} at #{current_piece.current_location}!\n\n"
     current_player.selected_piece = current_piece
     true
   end
@@ -30,7 +30,7 @@ module ValidatePieceSelection
     if current_player.selected_piece.legal_move(counter) == true
       make_move
     else
-      @game_message = "This is an illegal move! \n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location} "
+      @game_message = "This is an illegal move! \n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location}."
     end
   end
 
@@ -40,7 +40,7 @@ module ValidatePieceSelection
     return unless current_piece.colour == @current_player.colour
 
     current_piece = current_player.selected_grid.current_piece
-    @game_message = "That is your own piece, please move to another position or restart your turn!\n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location}"
+    @game_message = "That is your own piece, please move to another position or restart your turn!\n\nThe current piece you have selected is the #{current_piece.piece_name} at #{current_piece.current_location}."
     @game_phase = 3
     true
   end
